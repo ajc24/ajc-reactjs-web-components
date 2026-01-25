@@ -1,0 +1,77 @@
+/**
+ * Developed by Anthony Cox in 2025
+ */
+a[id$="--menu-bar-item-hyperlink"][class*="background-gold"]:hover,
+a[id$="--dropdown-menu-bar-container-item"][class*="background-gold"]:hover,
+button[id$="--scroll-menu-bar-items-left"][class*="background-gold"]:hover,
+button[id$="--scroll-menu-bar-items-right"][class*="background-gold"]:hover,
+button[id$="--close--dropdown-menu-bar-container"][class*="background-gold"]:hover,
+button[id$="--dropdown-menu-bar-button"][class*="background-gold"]:hover,
+button[id$="--button--dropdown-menu-bar-item"][class*="background-gold"]:hover,
+button[id$="--button--dropdown-menu-bar-item"][class*="background-gold"][data-isselected="true"] {
+  background-color: #FFDF80;
+}
+
+a[id$="--menu-bar-item-hyperlink"][class*="background-green"]:hover,
+a[id$="--dropdown-menu-bar-container-item"][class*="background-green"]:hover,
+button[id$="--scroll-menu-bar-items-left"][class*="background-green"]:hover,
+button[id$="--scroll-menu-bar-items-right"][class*="background-green"]:hover,
+button[id$="--close--dropdown-menu-bar-container"][class*="background-green"]:hover,
+button[id$="--dropdown-menu-bar-button"][class*="background-green"]:hover,
+button[id$="--button--dropdown-menu-bar-item"][class*="background-green"]:hover,
+button[id$="--button--dropdown-menu-bar-item"][class*="background-green"][data-isselected="true"] {
+  background-color: #00B33C;
+  color: #000000;
+}
+
+a[id$="--menu-bar-item-hyperlink"][class*="background-grey"]:hover,
+a[id$="--dropdown-menu-bar-container-item"][class*="background-grey"]:hover,
+button[id$="--scroll-menu-bar-items-left"][class*="background-grey"]:hover,
+button[id$="--scroll-menu-bar-items-right"][class*="background-grey"]:hover,
+button[id$="--close--dropdown-menu-bar-container"][class*="background-grey"]:hover,
+button[id$="--dropdown-menu-bar-button"][class*="background-grey"]:hover,
+button[id$="--button--dropdown-menu-bar-item"][class*="background-grey"]:hover,
+button[id$="--button--dropdown-menu-bar-item"][class*="background-grey"][data-isselected="true"] {
+  background-color: #999999;
+  color: #000000;
+}
+
+a[id$="--menu-bar-item-hyperlink"][class*="background-navy"]:hover,
+a[id$="--dropdown-menu-bar-container-item"][class*="background-navy"]:hover,
+button[id$="--scroll-menu-bar-items-left"][class*="background-navy"]:hover,
+button[id$="--scroll-menu-bar-items-right"][class*="background-navy"]:hover,
+button[id$="--close--dropdown-menu-bar-container"][class*="background-navy"]:hover,
+button[id$="--dropdown-menu-bar-button"][class*="background-navy"]:hover,
+button[id$="--button--dropdown-menu-bar-item"][class*="background-navy"]:hover,
+button[id$="--button--dropdown-menu-bar-item"][class*="background-navy"][data-isselected="true"] {
+  background-color: #0000B3;
+}
+
+a[id$="--menu-bar-item-hyperlink"][class*="background-red"]:hover,
+a[id$="--dropdown-menu-bar-container-item"][class*="background-red"]:hover,
+button[id$="--scroll-menu-bar-items-left"][class*="background-red"]:hover,
+button[id$="--scroll-menu-bar-items-right"][class*="background-red"]:hover,
+button[id$="--close--dropdown-menu-bar-container"][class*="background-red"]:hover,
+button[id$="--dropdown-menu-bar-button"][class*="background-red"]:hover,
+button[id$="--button--dropdown-menu-bar-item"][class*="background-red"]:hover,
+button[id$="--button--dropdown-menu-bar-item"][class*="background-red"][data-isselected="true"] {
+  background-color: #FF6666;
+  color: #000000;
+}
+
+a[id$="--menu-bar-item-hyperlink"][class*="background-white"]:hover,
+a[id$="--dropdown-menu-bar-container-item"][class*="background-white"]:hover,
+button[id$="--scroll-menu-bar-items-left"][class*="background-white"]:hover,
+button[id$="--scroll-menu-bar-items-right"][class*="background-white"]:hover,
+button[id$="--close--dropdown-menu-bar-container"][class*="background-white"]:hover,
+button[id$="--dropdown-menu-bar-button"][class*="background-white"]:hover,
+button[id$="--button--dropdown-menu-bar-item"][class*="background-white"]:hover,
+button[id$="--button--dropdown-menu-bar-item"][class*="background-white"][data-isselected="true"] {
+  background-color: #E6E6E6;
+}
+
+.menu-bar-common-transitions {
+  transition-duration: 0.25s;
+  transition-property: opacity;
+  transition-timing-function: ease-in-out;
+}

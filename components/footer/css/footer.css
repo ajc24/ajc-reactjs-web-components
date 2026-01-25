@@ -1,0 +1,19 @@
+/**
+ * Developed by Anthony Cox in 2025
+ */
+.footer-small-container {
+  display: flex;
+  flex-direction: column;
+  height: 39px;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+}
+
+.footer-small-font-bold {
+  line-height: 1.4;
+}
+
+.footer-small-font-not-bold {
+  line-height: 1.4;
+}

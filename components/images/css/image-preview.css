@@ -1,0 +1,82 @@
+/**
+ * Developed by Anthony Cox in 2025
+ */
+.image-preview-container {
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  margin: 0px;
+  max-width: 1248px;
+  min-width: 328px;
+  padding-left: 0px;
+  padding-right: 0px;
+  padding-top: 0px;
+  width: 100%;
+}
+
+.image-preview-container-inner {
+  display: flex;
+  flex-direction: row;
+  height: auto;
+  max-width: 1248px;
+  min-width: 328px;
+  width: 100%;
+}
+
+.image-preview-container-inner-alignment-centre {
+  justify-content: center;
+}
+
+.image-preview-container-inner-alignment-left {
+  justify-content: flex-start;
+}
+
+.image-preview-pane {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-bottom: 16px;
+  max-width: 326px;
+  width: 100%;
+}
+
+.image-preview-pane-icon {
+  cursor: default;
+  display: flex;
+  flex-direction: row;
+  font-size: 3.5em;
+  justify-content: center;
+  user-select: none;
+  width: 100%;
+}
+
+.image-preview-pane-information {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: center;
+  width: 100%;
+}
+
+.image-preview-pane-no-image-data {
+  border: 1px dotted #000000;
+  height: 248px;
+  max-height: 248px;
+  min-height: 248px;
+}
+
+.image-preview-pane-supporting-text {
+  cursor: default;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding-top: 8px;
+  user-select: none;
+  width: 100%;
+}
+
+.image-preview-pane-with-image-data {
+  border: none;
+  height: auto;
+  min-height: 250px;
+}

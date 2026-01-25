@@ -1,0 +1,44 @@
+/**
+ * Developed by Anthony Cox in 2025
+ */
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
+
+.page-title-text {
+  cursor: default;
+  display: flex;
+  flex-direction: row;
+  height: auto;
+  line-height: 1.2;
+  margin: 0px;
+  max-width: 1248px;
+  min-width: 328px;
+  padding-bottom: 32px;
+  padding-left: 0px;
+  padding-right: 0px;
+  padding-top: 16px;
+  user-select: none;
+  width: 100%;
+}
+
+.page-title-text-alignment-left {
+  justify-content: flex-start;
+}
+
+.page-title-text-alignment-centre {
+  justify-content: center;
+  text-align: center;
+}
+
+.page-title-text-font-cursive {
+  font-family: "Great Vibes", cursive;
+  font-size: 2.5em;
+}
+
+.page-title-text-font-normal {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 2em;
+}
+
+.page-title-text-underline {
+  text-decoration: underline;
+}

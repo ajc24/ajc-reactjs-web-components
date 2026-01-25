@@ -1,0 +1,67 @@
+/**
+ * Developed by Anthony Cox in 2025
+ */
+.dropdown-menu-bar-container {
+  border: 1px solid #000000;
+  border-radius: 0px 20px 20px 20px;
+  position: absolute;
+  visibility: hidden;
+  z-index: 5;
+}
+
+.dropdown-menu-bar-container-row-bottom {
+  border-radius: 0px 0px 20px 20px;
+  height: 29px;
+  width: 326px;
+}
+
+.dropdown-menu-bar-container-row-hyperlink {
+  cursor: default;
+  display: flex;
+  flex-direction: column;
+  height: 30px;
+  justify-content: center;
+  margin-bottom: 2px;
+  padding-left: 8px;
+  padding-right: 8px;
+  text-decoration: none;
+  user-select: none;
+  width: 310px;
+}
+
+.dropdown-menu-bar-container-row-hyperlink-container {
+  display: flex;
+  flex-direction: column;
+  width: 326px;
+}
+
+.dropdown-menu-bar-container-row-hyperlink-title {
+  display: flex;
+  flex-direction: row;
+}
+
+.dropdown-menu-bar-container-row-top {
+  border-radius: 0px 20px 0px 0px;
+  display: flex;
+  flex-direction: row-reverse;
+  height: 32px;
+  width: 326px;
+}
+
+.dropdown-menu-bar-container-row-top-close {
+  border: none;
+  border-radius: 20px 20px 20px 20px;
+  cursor: default;
+  display: flex;
+  flex-direction: column;
+  height: 29px;
+  justify-content: center;
+  margin-bottom: 0px;
+  margin-left: 0px;
+  margin-right: 5px;
+  margin-top: 0px;
+  padding: 0px;
+  text-align: center;
+  user-select: none;
+  width: auto;
+}

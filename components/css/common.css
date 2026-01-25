@@ -1,0 +1,111 @@
+/**
+ * Developed by Anthony Cox in 2025
+ */
+.background-gold {
+  background-color: #FFBF00;
+}
+
+.background-green {
+  background-color: #006622;
+}
+
+.background-grey {
+  background-color: #4D4D4D;
+}
+
+.background-grey-body {
+  background-color: #F6F6F6;
+}
+
+.background-navy {
+  background-color: #000066;
+}
+
+.background-red {
+  background-color: #800000;
+}
+
+.background-transparent {
+  background-color: transparent;
+}
+
+.background-white {
+  background-color: #FFFFFF;
+}
+
+.body-default {
+  margin: 0px;
+  padding: 0px;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+.component-container-width {
+  max-width: 1248px;
+  min-width: 328px;
+}
+
+.component-label {
+  cursor: default;
+  display: flex;
+  margin: 0px;
+  padding-bottom: 8px;
+  padding-left: 0px;
+  padding-right: 0px;
+  padding-top: 0px;
+  user-select: none;
+  width: auto;
+}
+
+.font-black {
+  color: #000000;
+}
+
+.font-default {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1em;
+  line-height: 1.4;
+  word-wrap: break-word;
+}
+
+.font-gold {
+  color: #FFBF00;
+}
+
+.font-label {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1.25em;
+  font-weight: bold;
+  line-height: 1.4;
+  word-wrap: break-word;
+}
+
+.font-red {
+  color: #800000;
+}
+
+.font-white {
+  color: #FFFFFF;
+}
+
+.hidden {
+  display: none;
+}
+
+.screen-width-content-inner {
+  max-width: 1248px;
+  min-width: 328px;
+  padding-left: 16px;
+  padding-right: 16px;
+  width: 100%;
+}
+
+.screen-width-content-outer {
+  max-width: 1920px;
+  min-width: 360px;
+  width: inherit;
+}
+
+.screen-width-root {
+  width: 100%;
+}

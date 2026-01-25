@@ -1,0 +1,90 @@
+/**
+ * Developed by Anthony Cox in 2025
+ */
+.dropdown-alignment-centre {
+  justify-content: center;
+}
+
+.dropdown-alignment-left {
+  justify-content: flex-start;
+}
+
+.dropdown-common-container {
+  display: flex;
+  flex-direction: row;
+  line-height: 1.4;
+  width: 100%;
+}
+
+.dropdown-container {
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  margin: 0px;
+  max-width: 1248px;
+  min-width: 328px;
+  padding-bottom: 16px;
+  padding-left: 0px;
+  padding-right: 0px;
+  padding-top: 0px;
+  width: 100%;
+}
+
+.dropdown {
+  border-radius: 5px;
+  display: flex;
+  flex-direction: row;
+  margin: 0px;
+  padding-bottom: 8px;
+  padding-left: 8px;
+  padding-right: 8px;
+  padding-top: 8px;
+  width: 100%;
+}
+
+.dropdown-disabled {
+  border: 1px dotted #000000;
+  max-width: 328px;
+}
+
+.dropdown-enabled {
+  border: 1px solid #000000;
+  max-width: 328px;
+}
+
+.dropdown-error {
+  border: 3px solid #800000;
+  max-width: 328px;
+}
+
+.dropdown-error-container {
+  display: flex;
+  flex-direction: row;
+  line-height: 1.4;
+  padding-bottom: 0px;
+  padding-left: 0px;
+  padding-right: 0px;
+  padding-top: 4px;
+  user-select: none;
+  width: 100%;
+}
+
+.dropdown-label {
+  cursor: default;
+  font-size: 1.25em;
+  font-weight: bold;
+  line-height: 1.4;
+  margin: 0px;
+  max-width: 1248px;
+  min-width: 328px;
+  padding-bottom: 8px;
+  padding-left: 0px;
+  padding-right: 0px;
+  padding-top: 0px;
+  user-select: none;
+  width: auto;
+}
+
+.dropdown-option-group-label {
+  font-style: normal;
+}

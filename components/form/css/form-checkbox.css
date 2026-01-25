@@ -1,0 +1,105 @@
+/**
+ * Developed by Anthony Cox in 2025
+ */
+.form-checkbox {
+  cursor: default;
+  display: flex;
+  height: 25px;
+  max-width: 25px;
+  min-width: 25px;
+  width: 25px;
+}
+
+.form-checkbox-container {
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  margin: 0px;
+  max-width: 1248px;
+  min-width: 328px;
+  padding-bottom: 16px;
+  padding-left: 0px;
+  padding-right: 0px;
+  padding-top: 0px;
+  width: 100%;
+}
+
+.form-checkbox-container-inner {
+  display: flex;
+  flex-direction: row;
+  height: inherit;
+  max-width: 1248px;
+  min-width: 328px;
+  width: 100%;
+}
+
+.form-checkbox-container-inner-alignment-centre {
+  justify-content: center;
+}
+
+.form-checkbox-container-inner-alignment-left {
+  justify-content: flex-start;
+}
+
+.form-checkbox-error {
+  cursor: default;
+  display: flex;
+  flex-direction: row;
+  height: auto;
+  line-height: 1.4;
+  max-width: 1244px;
+  min-width: 324px;
+  padding-bottom: 0px;
+  padding-left: 4px;
+  padding-right: 0px;
+  padding-top: 4px;
+  user-select: none;
+  width: 100%;
+}
+
+.form-checkbox-error-span {
+  margin-left: -4px;
+  min-width: 324px;
+}
+
+.form-checkbox-input-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-bottom: 0px;
+  margin-left: 0px;
+  margin-right: 0px;
+  margin-top: -1px;
+  max-width: 32px;
+  padding-bottom: 0px;
+  padding-left: 0px;
+  padding-right: 8px;
+  padding-top: 0px;
+  width: 32px;
+}
+
+.form-checkbox-label {
+  cursor: default;
+  display: flex;
+  line-height: 1.4;
+  max-width: 1208px;
+  min-width: 288px;
+  user-select: none;
+  width: auto;
+}
+
+.form-checkbox-label-container {
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  justify-content: center;
+  line-height: 1.2;
+  max-width: 1208px;
+  min-width: 288px;
+  width: auto;
+}
+
+.form-checkbox-label-disabled {
+  font-style: italic;
+  text-decoration: line-through;
+}

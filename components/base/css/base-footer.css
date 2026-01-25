@@ -1,0 +1,28 @@
+/**
+ * Developed by Anthony Cox in 2025
+ */
+.footer-inner {
+  cursor: default;
+  display: flex;
+  flex-direction: row;
+  height: auto;
+  justify-content: center;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  user-select: none;
+}
+
+.footer-outer {
+  display: flex;
+  flex-direction: row;
+  height: inherit;
+  justify-content: center;
+}
+
+.footer-root {
+  display: flex;
+  flex-direction: row;
+  height: auto;
+  justify-content: center;
+  min-height: 55px;
+ }

@@ -1,0 +1,11 @@
+/**
+ * Developed by Anthony Cox in 2025
+ */
+.menu-bar-central-content {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  max-width: 1128px;
+  min-width: 208px;
+  width: 100%;
+}

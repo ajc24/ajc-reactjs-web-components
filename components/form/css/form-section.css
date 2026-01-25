@@ -1,0 +1,21 @@
+/**
+ * Developed by Anthony Cox in 2026
+ */
+.form-section-description-none {
+  padding-bottom: 8px;
+}
+
+.form-section-form-container {
+  padding-bottom: 16px;
+  padding-top: 16px;
+}
+
+.form-section-form-container-bottom-border {
+  border-bottom: 1px dotted #000000;
+  margin-bottom: 16px;
+}
+
+.form-section-heading-and-description {
+  display: flex;
+  flex-direction: column;
+}

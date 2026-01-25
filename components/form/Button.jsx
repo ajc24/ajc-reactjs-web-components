@@ -1,0 +1,46 @@
+/**
+ * Developed by Anthony Cox in 2025
+ */
+import PropTypes from 'prop-types';
+import { BaseButton } from '../../components';
+import './css/form-buttons.css';
+
+/**
+ * Standard button component allowing for a render of a single regular button type in a form in a web application.
+ * 
+ * The button can be rendered in a range of different background colours to match the colours chosen for the Menu Bar
+ * and Footer components in the UI. Custom onClick functionality can also be specified. This component is also fully keyboard
+ * accessible and can be rendered in a disabled state where desired. The standard button component is left aligned by default
+ * but can also be centrally aligned if desired.
+ * 
+ * The button component is intended for use within the Main component.
+ */
+const Button = props => {
+  /* Set the styling for the container element */
+  let containerCss = 'form-buttons-container';
+  props.alignment === 'centre' ? containerCss += ' form-buttons-container-alignment-centre' : containerCss += ' form-buttons-container-alignment-left';
+
+  return (
+    <div className={containerCss}>
+      <BaseButton backgroundColour={props.backgroundColour || 'white'} id={`${props.id}--single--button`} isDisabled={props.isDisabled || false} onClick={props.onClick}
+        type="button">
+          {props.children}
+      </BaseButton>
+    </div>
+  );
+}
+Button.propTypes = {
+  /* The alignment of the button component. The button field by default will be left aligned but can be centre aligned if desired. */
+  alignment: PropTypes.oneOf([ 'centre', 'left' ]),
+  /** The background colour for the button. The default colour for the button is white. */
+  backgroundColour: PropTypes.oneOf([ 'gold', 'green', 'grey', 'navy-and-gold', 'navy-and-white', 'red', 'white' ]),
+  /** The text label to be set to the button. */
+  children: PropTypes.string.isRequired,
+  /** The unique identifier for this component. */
+  id: PropTypes.string.isRequired,
+  /** Switch to set whether the button is disabled or not. By default the button is enabled. */
+  isDisabled: PropTypes.bool,
+  /** Custom onClick functionality to be set to the button. */
+  onClick: PropTypes.func,
+};
+export default Button;

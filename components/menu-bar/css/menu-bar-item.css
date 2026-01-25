@@ -1,0 +1,53 @@
+/**
+ * Developed by Anthony Cox in 2025
+ */
+.menu-bar-item-container {
+  border-bottom: none;
+  border-left: none;
+  border-right: none;
+  border-top: none;
+  cursor: default;
+  display: flex;
+  flex-direction: column;
+  height: 55px;
+  justify-content: center;
+  margin-bottom: 0px;
+  margin-left: 0px;
+  margin-top: 0px;
+  max-height: 55px;
+  max-width: 100px;
+  opacity: 0;
+  padding-bottom: 0px;
+  padding-left: 0px;
+  padding-right: 0px;
+  padding-top: 0px;
+  user-select: none;
+  width: 100px;
+}
+
+.menu-bar-item-container-right-side-spacing {  
+  margin-right: 8px;
+}
+
+.menu-bar-item-hyperlink {
+  cursor: default;
+  display: flex;
+  flex-direction: column;
+  height: inherit;
+  justify-content: center;
+  text-decoration: none;
+  user-select:none;
+  width: inherit;
+}
+
+.menu-bar-item-inner-content {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  line-height: 1.4;
+  padding-left: 5px;
+  padding-right: 5px;
+  text-align: center;
+  user-select:none;
+  width: 90px;
+}

@@ -1,0 +1,24 @@
+/**
+ * Developed by Anthony Cox in 2025
+ */
+.form-buttons-container {
+  display: flex;
+  flex-direction: row;
+  height: auto;
+  margin: 0px;
+  max-width: 1248px;
+  min-width: 328px;
+  padding-bottom: 0px;
+  padding-left: 0px;
+  padding-right: 0px;
+  padding-top: 0px;
+  width: 100%;
+}
+
+.form-buttons-container-alignment-centre {
+  justify-content: center;
+}
+
+.form-buttons-container-alignment-left {
+  justify-content: flex-start;
+}

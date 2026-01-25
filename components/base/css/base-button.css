@@ -1,0 +1,77 @@
+/**
+ * Developed by Anthony Cox in 2025
+ */
+button[id$="--base-button"][class*="background-gold"][aria-disabled="false"]:hover {
+  background-color: #FFDF80;
+}
+
+button[id$="--base-button"][class*="background-green"][aria-disabled="false"]:hover {
+  background-color: #00B33C;
+  color: #000000;
+}
+
+button[id$="--base-button"][class*="background-grey"][aria-disabled="false"]:hover {
+  background-color: #999999;
+  color: #000000;
+}
+
+button[id$="--base-button"][class*="background-navy"][aria-disabled="false"]:hover {
+  background-color: #0000B3;
+}
+
+button[id$="--base-button"][class*="background-red"][aria-disabled="false"]:hover {
+  background-color: #FF6666;
+  color: #000000;
+}
+
+button[id$="--base-button"][class*="background-white"][aria-disabled="false"]:hover {
+  background-color: #E6E6E6;
+}
+
+.button-container {
+  display: flex;
+  flex-direction: row;
+  height: auto;
+  margin: 0px;
+  padding-bottom: 16px;
+  padding-left: 0px;
+  padding-right: 0px;
+  padding-top: 0px;
+  width: 100px;
+}
+
+.button-container-right-side-spacing {  
+  margin-right: 8px;
+}
+
+.button-standard {
+  border-bottom: none;
+  border-left: none;
+  border-right: none;
+  border-top: none;
+  cursor: default;
+  display: flex;
+  flex-direction: column;
+  height: 55px;
+  justify-content: center;
+  margin: 0px;
+  padding: 0px;
+  text-decoration: none;
+  user-select:none;
+  width: 100px;
+}
+
+.button-standard-disabled {
+  opacity: 0.5;
+}
+
+.button-standard-span {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding-left: 5px;
+  padding-right: 5px;
+  text-align: center;
+  user-select:none;
+  width: 90px;
+}

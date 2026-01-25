@@ -1,0 +1,42 @@
+/**
+ * Developed by Anthony Cox in 2025
+ */
+.file-input-alignment-centre {
+  justify-content: center;
+}
+
+.file-input-alignment-left {
+  justify-content: flex-start;
+}
+
+.file-input-container {
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  justify-content: flex-start;
+  padding-bottom: 16px;
+  padding-left: 0px;
+  padding-right: 0px;
+  padding-top: 8px;
+  width: 100%;
+}
+
+.file-input-error-container {
+  display: flex;
+  flex-direction: row;
+  line-height: 1.4;
+  margin-top: -8px;
+  padding-bottom: 0px;
+  padding-left: 0px;
+  padding-right: 0px;
+  padding-top: 0px;
+  user-select: none;
+  width: 100%;
+}
+
+.file-input-inner-container {
+  display: flex;
+  flex-direction: row;
+  line-height: 1.4;
+  width: 100%;
+}

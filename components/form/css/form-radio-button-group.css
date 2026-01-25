@@ -1,0 +1,149 @@
+/**
+ * Developed by Anthony Cox in 2025
+ */
+.form-radio-button-group-button-container {
+  display: flex;
+  flex-direction: row;
+  height: auto;
+  justify-content: flex-start;
+  padding-bottom: 8px;
+  width: auto;
+}
+
+.form-radio-button-group-button-label {
+  cursor: default;
+  line-height: 1.4;
+  padding-left: 8px;
+  user-select: none;
+}
+
+.form-radio-button-group-button-label-disabled {
+  font-style: italic;
+  text-decoration: line-through;
+}
+
+.form-radio-button-group-container {
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  margin: 0px;
+  max-width: 1248px;
+  min-width: 328px;
+  padding-bottom: 16px;
+  padding-left: 0px;
+  padding-right: 0px;
+  padding-top: 0px;
+  width: 100%;
+}
+
+.form-radio-button-group-container-inner {
+  display: flex;
+  flex-direction: row;
+  height: auto;
+  max-width: 1248px;
+  min-width: 328px;
+  width: 100%;
+}
+
+.form-radio-button-group-container-inner-alignment-centre {
+  justify-content: center;
+}
+
+.form-radio-button-group-container-inner-alignment-left {
+  justify-content: flex-start;
+}
+
+.form-radio-button-group-content {
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  justify-content: flex-start;
+  width: auto;
+}
+
+.form-radio-button-group-error {
+  cursor: default;
+  display: flex;
+  flex-direction: row;
+  height: auto;
+  line-height: 1.4;
+  max-width: 1244px;
+  min-width: 324px;
+  padding-bottom: 0px;
+  padding-left: 4px;
+  padding-right: 0px;
+  padding-top: 4px;
+  user-select: none;
+  width: 100%;
+}
+
+.form-radio-button-group-error-span {
+  min-width: 324px;
+}
+
+.form-radio-button-group-fieldset {
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  margin: 0px;
+  max-width: 1230px;
+  min-width: 310px;
+  padding: 8px;
+  width: auto;
+}
+
+.form-radio-button-group-fieldset-disabled {
+  border: 1px dotted #000000;
+}
+
+.form-radio-button-group-fieldset-enabled {
+  border: 1px solid #000000;
+}
+
+.form-radio-button-group-fieldset-error {
+  border: 3px solid #800000;
+  min-width: 306px;
+}
+
+.form-radio-button-group-input {
+  appearance: none;
+  border-radius: 10px;
+  cursor: default;
+  height: 16px;
+  margin-bottom: 0px;
+  margin-left: 8px;
+  margin-right: 0px;
+  margin-top: 3px;
+  min-height: 16px;
+  min-width: 16px;
+  transition: 0.2s all linear;
+  user-select: none;
+  width: 16px;
+}
+
+.form-radio-button-group-input:checked {
+  border: 5px solid #000000;
+}
+
+.form-radio-button-group-input-disabled {
+  border: 1px dotted #000000;
+}
+
+.form-radio-button-group-input-enabled {
+  border: 1px solid #000000;
+}
+
+.form-radio-button-group-legend {
+  border: 1px solid #000000;
+  border-radius: 5px;
+  cursor: default;
+  line-height: 1.4;
+  max-width: 302px;
+  padding-bottom: 4px;
+  padding-left: 8px;
+  padding-right: 8px;
+  padding-top: 4px;
+  user-select: none;
+  width: auto;
+}

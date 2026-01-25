@@ -1,0 +1,86 @@
+/**
+ * Developed by Anthony Cox in 2025
+ */
+.title-text-alignment-centre {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.title-text-alignment-left {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+.title-text-container {
+  height: auto;
+  width: auto;
+}
+
+.title-text-font-black {
+  color: #000000;
+  text-shadow: 0.5px 0.5px 0 #FFFFFF,
+    -0.5px 0.5px 0 #FFFFFF,
+    0.5px -0.5px 0 #FFFFFF,
+    -0.5px -0.5px 0 #FFFFFF,
+    0px 0.5px 0 #FFFFFF,
+    0px -0.5px 0 #FFFFFF,
+    -0.5px 0px 0 #FFFFFF,
+    0.5px 0px 0 #FFFFFF,
+    1px 1px 0 #FFFFFF,
+    -1px 1px 0 #FFFFFF,
+    1px -1px 0 #FFFFFF,
+    -1px -1px 0 #FFFFFF,
+    0px 1px 0 #FFFFFF,
+    0px -1px 0 #FFFFFF,
+    -1px 0px 0 #FFFFFF,
+    1px 0px 0 #FFFFFF,
+    0.5px 1px 0 #FFFFFF,
+    -0.5px 1px 0 #FFFFFF,
+    0.5px -1px 0 #FFFFFF,
+    -0.5px -1px 0 #FFFFFF,
+    1px 0.5px 0 #FFFFFF,
+    -1px 0.5px 0 #FFFFFF,
+    1px -0.5px 0 #FFFFFF,
+    -1px -0.5px 0 #FFFFFF;
+}
+
+.title-text-font-default {
+  cursor: default;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 3em;
+  height: auto;
+  margin: 0px;
+  user-select: none;
+  width: fit-content;
+  white-space: nowrap;
+}
+
+.title-text-font-white {
+  color: #FFFFFF;
+  text-shadow: 0.5px 0.5px 0 #000000,
+    -0.5px 0.5px 0 #000000,
+    0.5px -0.5px 0 #000000,
+    -0.5px -0.5px 0 #000000,
+    0px 0.5px 0 #000000,
+    0px -0.5px 0 #000000,
+    -0.5px 0px 0 #000000,
+    0.5px 0px 0 #000000,
+    1px 1px 0 #000000,
+    -1px 1px 0 #000000,
+    1px -1px 0 #000000,
+    -1px -1px 0 #000000,
+    0px 1px 0 #000000,
+    0px -1px 0 #000000,
+    -1px 0px 0 #000000,
+    1px 0px 0 #000000,
+    0.5px 1px 0 #000000,
+    -0.5px 1px 0 #000000,
+    0.5px -1px 0 #000000,
+    -0.5px -1px 0 #000000,
+    1px 0.5px 0 #000000,
+    -1px 0.5px 0 #000000,
+    1px -0.5px 0 #000000,
+    -1px -0.5px 0 #000000;
+}

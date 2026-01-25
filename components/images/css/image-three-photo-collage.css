@@ -1,0 +1,77 @@
+/**
+ * Developed by Anthony Cox in 2025
+ */
+.three-photo-collage-image-border-grey {
+  border-bottom: 8px solid #F6F6F6;
+  border-left: 8px solid #F6F6F6;
+  border-right: 8px solid #F6F6F6;
+  border-top: 8px solid #F6F6F6;
+  height: auto;
+  width: auto;
+}
+
+.three-photo-collage-image-border-white {
+  border-bottom: 8px solid #FFFFFF;
+  border-left: 8px solid #FFFFFF;
+  border-right: 8px solid #FFFFFF;
+  border-top: 8px solid #FFFFFF;
+  height: auto;
+  width: auto;
+}
+
+.three-photo-collage-image-container {
+  height: auto;
+  max-width: 620px;
+  min-width: 160px;
+  width: 100%;
+}
+
+.three-photo-collage-image-container-spacing {
+  margin-right: 8px;
+}
+
+.three-photo-collage-lower-image-container {
+  display: flex;
+  flex-direction: row;
+  height: auto;
+  justify-content: center;
+  margin-bottom: 8px;
+  position: relative;
+  width: 100%;
+  z-index: 1;
+}
+
+.three-photo-collage--upper-image-left {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+.three-photo-collage--upper-image-right {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+.three-photo-collage-upper-images-container {
+  display: flex;
+  flex-direction: row;
+  height: auto;
+  justify-content: center;
+  margin-bottom: 8px;
+  width: 100%;
+}
+
+.three-photo-collage-root {
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  justify-content: flex-start;
+  max-width: 1248px;
+  min-width: 328px;
+  opacity: 0;
+  transition-duration: 1s;
+  transition-property: opacity;
+  transition-timing-function: ease-in-out;
+  width: 100%;
+}

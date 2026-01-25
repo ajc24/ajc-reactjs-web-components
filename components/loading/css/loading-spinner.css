@@ -1,0 +1,102 @@
+/**
+ * Developed by Anthony Cox in 2025
+ */
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.spinner {
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  animation: spin 2s linear infinite;
+}
+
+.spinner-colour-gold {
+  border: 16px solid #FFFFFF;
+  border-bottom: 16px solid #FFBF00;
+  border-top: 16px solid #FFBF00;
+}
+
+.spinner-colour-green {
+  border: 16px solid #FFFFFF;
+  border-bottom: 16px solid #006622;
+  border-top: 16px solid #006622;
+}
+
+.spinner-colour-grey {
+  border: 16px solid #FFFFFF;
+  border-bottom: 16px solid #4D4D4D;
+  border-top: 16px solid #4D4D4D;
+}
+
+.spinner-colour-navy-and-gold {
+  border: 16px solid #000066;
+  border-bottom: 16px solid #FFBF00;
+  border-top: 16px solid #FFBF00;
+}
+
+.spinner-colour-navy-and-white {
+  border: 16px solid #000066;
+  border-bottom: 16px solid #FFFFFF;
+  border-top: 16px solid #FFFFFF;
+}
+
+.spinner-colour-red {
+  border: 16px solid #FFFFFF;
+  border-bottom: 16px solid #800000;
+  border-top: 16px solid #800000;
+}
+
+.spinner-colour-white {
+  border: 16px solid #E6E6E6;
+  border-bottom: 16px solid #FFFFFF;
+  border-top: 16px solid #FFFFFF;
+}
+
+.spinner-container {
+  background-color: #FFFFFF; 
+  border-radius: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin-bottom: 0px;
+  margin-left: 16px;
+  margin-right: 16px;
+  margin-top: 0px;
+  max-width: 328px;
+  min-width: 328px;
+  width: 328px;
+}
+
+.spinner-div {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding-bottom: 16px;
+  padding-left: 0px;
+  padding-right: 0px;
+  padding-top: 16px;
+  user-select: none;
+  width: 100%;
+}
+
+.spinner-font {
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+.spinner-inner-container {
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  justify-content: flex-start;
+  padding-bottom: 16px;
+  padding-left: 16px;
+  padding-right: 16px;
+  padding-top: 16px;
+  max-width: 296px;
+  min-width: 296px;
+  width: auto;
+}

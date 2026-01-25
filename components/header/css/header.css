@@ -1,0 +1,41 @@
+/**
+ * Developed by Anthony Cox in 2025
+ */
+.header-all-container {
+  display: flex;
+  flex-direction: row;
+  flex-grow: 1;
+  justify-content: flex-start;
+}
+
+.header-all-logo-container {
+  height: 133px;
+  padding-bottom: 8px;
+  padding-right: 8px;
+  padding-top: 8px;
+  width: 133px;
+}
+
+.header-all-text-container {
+  display: flex;
+  flex-direction: column;
+  height: 149px;
+  justify-content: center;
+  max-width: 1107px; /* Takes into account the inner widths of the available content area less the 141px for the logo */
+  min-width: 187px;
+  width: 100%;
+}
+
+.header-all-text-spacing {
+  height: 0px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  width: 100%;
+}
+
+.tall-header-logo-container {
+  display: flex;
+  flex-direction: row;
+  flex-grow: 1;
+  justify-content: center;
+}

@@ -1,0 +1,94 @@
+/**
+ * Developed by Anthony Cox in 2025
+ */
+button[class*="tabs-list-button-tab"][aria-selected]:hover {
+  background-color: #E6E6E6;
+}
+
+button[class*="tabs-list-button-tab"][aria-selected="false"] {
+  color: #000000;
+}
+
+button[class*="tabs-list-button-tab"][aria-selected="true"] {
+  border-bottom: 3px double #006622;
+  color: #006622;
+  font-weight: bold;
+}
+
+.tabs-list-button-container {
+  display: flex;
+  flex-direction: row;
+  height: 50px;
+  justify-content: flex-start;
+  padding-bottom: 8px;
+  padding-left: 0px;
+  padding-right: 0px;
+  padding-top: 0px;
+  width: 100%;
+}
+
+.tabs-list-button-hidden {
+  background-color: transparent;
+  border: none;
+  height: 0px;
+  width: 0px;
+  text-decoration: none;
+  user-select: none;
+}
+
+.tabs-list-button-tab {
+  border: none;
+  cursor: default;
+  display: flex;
+  flex-direction: column;
+  height: 55px;
+  justify-content: center;
+  line-height: 1.4;
+  margin-bottom: 0px;
+  margin-left: 0px;
+  margin-right: 8px;
+  margin-top: 0px;
+  max-height: 55px;
+  max-width: 100px;
+  min-width: 100px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-top: 5px;
+  text-decoration: none;
+  user-select: none;
+  width: 90px;
+}
+
+.tabs-list-container {
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  justify-content: flex-start;
+  max-width: 1248px;
+  min-width: 328px;
+  padding-bottom: 8px;
+  padding-left: 0px;
+  padding-top: 8px;
+  padding-right: 0px;
+  width: 100%;
+}
+
+.tabs-list-content-container {
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  justify-content: flex-start;
+  padding-bottom: 0px;
+  padding-left: 0px;
+  padding-right: 0px;
+  padding-top: 16px;
+  width: 100%;
+}
+
+.tabs-list-content-inner {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+}

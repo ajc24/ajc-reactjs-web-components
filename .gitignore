@@ -1,0 +1,5 @@
+# Root folders and files
+node_modules
+
+# Testing folders and files
+tests/unit/coverage

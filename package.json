@@ -1,0 +1,44 @@
+{
+  "name": "ajc-reactjs-web-components",
+  "version": "1.0.0",
+  "description": "A web design system of ReactJs UI components.",
+  "main": "index.js",
+  "scripts": {
+    "build-storybook": "storybook build --output-dir ./docs",
+    "storybook": "storybook dev -p 6006",
+    "test-unit": "jest --config=./tests/jest-config/unit.config.js",
+    "test-unit-coverage": "npm run test-unit -- --collectCoverage"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ajc24/ajc-reactjs-web-components.git"
+  },
+  "author": "Anthony Cox",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ajc24/ajc-reactjs-web-components/issues"
+  },
+  "homepage": "https://github.com/ajc24/ajc-reactjs-web-components#readme",
+  "devDependencies": {
+    "@babel/cli": "^7.28.6",
+    "@babel/core": "^7.28.6",
+    "@babel/preset-env": "^7.28.6",
+    "@babel/preset-react": "^7.28.5",
+    "@storybook/addon-a11y": "^10.2.0",
+    "@storybook/addon-docs": "^10.2.0",
+    "@storybook/addon-links": "^10.2.0",
+    "@storybook/addon-webpack5-compiler-swc": "^4.0.2",
+    "@storybook/react": "^10.2.0",
+    "@storybook/react-webpack5": "^10.2.0",
+    "@testing-library/react": "^16.3.2",
+    "axe-core": "^4.11.1",
+    "babel-loader": "^10.0.0",
+    "jest": "^30.2.0",
+    "jest-environment-jsdom": "^30.2.0",
+    "prop-types": "^15.8.1",
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3",
+    "react-router": "^7.12.0",
+    "storybook": "^10.2.0"
+  }
+}

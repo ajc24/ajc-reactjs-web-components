@@ -17,6 +17,12 @@ import BaseMenuBar from './base/BaseMenuBar.jsx';
 import Accordion from './buttons/Accordion.jsx';
 import TabsList from './buttons/TabsList.jsx';
 
+/* Dialog components */
+import Dialog from './dialog/Dialog.jsx';
+import DialogButton from './dialog/DialogButton.jsx';
+import DialogContent from './dialog/DialogContent.jsx';
+import DialogTitle from './dialog/DialogTitle.jsx';
+
 /* Footer components */
 import Footer from './footer/Footer.jsx';
 
@@ -27,6 +33,7 @@ import DateInput from './form/DateInput.jsx';
 import Dropdown from './form/Dropdown.jsx';
 import FileUploadImage from './form/FileUploadImage.jsx';
 import FileUploadPdf from './form/FileUploadPdf.jsx';
+import FormDataManager from './form/FormDataManager.jsx';
 import FormManager from './form/FormManager.jsx';
 import FormSection from './form/FormSection.jsx';
 import PasswordInput from './form/PasswordInput.jsx';
@@ -62,6 +69,9 @@ import MenuBarItem from './menu-bar/MenuBarItem.jsx';
 import ScrollMenuBarItemsLeft from './menu-bar/ScrollMenuBarItemsLeft.jsx';
 import ScrollMenuBarItemsRight from './menu-bar/ScrollMenuBarItemsRight.jsx';
 
+/* Spacing components */
+import HorizontalRule from './spacing/HorizontalRule.jsx';
+
 /* Text components */
 import ApplicationSubtitleText from './text/ApplicationSubtitleText.jsx';
 import ApplicationTitleText from './text/ApplicationTitleText.jsx';
@@ -85,6 +95,12 @@ export {
   Accordion,
   TabsList,
 
+  /* Dialog components */
+  Dialog,
+  DialogButton,
+  DialogContent,
+  DialogTitle,
+
   /* Footer components */
   Footer,
 
@@ -95,6 +111,7 @@ export {
   Dropdown,
   FileUploadImage,
   FileUploadPdf,
+  FormDataManager,
   FormManager,
   FormSection,
   PasswordInput,
@@ -129,6 +146,9 @@ export {
   MenuBarItem,
   ScrollMenuBarItemsLeft,
   ScrollMenuBarItemsRight,
+
+  /* Spacing components */
+  HorizontalRule,
 
   /* Text components */
   ApplicationSubtitleText,

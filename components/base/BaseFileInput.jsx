@@ -1,14 +1,24 @@
 /**
  * Developed by Anthony Cox in 2025
+ * 
+ * Revisions (January 2026):
+ * - Improved error handling especially around empty file uploads. Now all client side error handling is handled internally to the component.
  */
 import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import Button from '../form/Button.jsx';
 import ImagePreview from '../images/ImagePreview.jsx';
 import Paragraph from '../text/Paragraph.jsx';
+import {
+  EventManager,
+  HTMLElementManager,
+} from '../modules';
 import './css/base-file-input.css';
 import '../css/common.css';
-import { handleOptionalFormFieldTextContent } from '../data/form-functions.js';
+
+/* Create the event and element managers for this component */
+const eventManager = new EventManager();
+const htmlElementManager = new HTMLElementManager();
 
 /* Data for which file types are accepted by the file input element */
 const acceptListData = {
@@ -39,7 +49,10 @@ const BaseFileInput = props => {
   const [ fileError, setFileError ] = useState(undefined);
   const [ fileName, setFileName ] = useState(undefined);
   const [ inputFileValueData, setInputFileValueData ] = useState(undefined);
+  const [ isInvalidFile, setIsInvalidFile ] = useState(false);
+  const [ isPreLoadedFile, setIsPreloadedFile ] = useState(false);
   const [ maximumFileSize, setMaximumFileSize ] = useState(defaultMaximumFileSize);
+  const [ usedDefaultFileData, setUsedDefaultFileData ] = useState(false);
 
   useEffect(() => {
     if (props.accept !== undefined) {
@@ -48,7 +61,7 @@ const BaseFileInput = props => {
         setAcceptList(acceptListData[`${props.accept}`].extensions);
       }
     }
-    
+  
     if (props.fileSizeLimit !== undefined && props.fileSizeLimit !== maximumFileSize) {
       /* Set a custom defined maximum file size property for this component */
       setMaximumFileSize(props.fileSizeLimit);
@@ -56,15 +69,39 @@ const BaseFileInput = props => {
       /* Set the default maximum file size property */
       setMaximumFileSize(defaultMaximumFileSize);
     }
-  }, [ props.accept, props.fileSizeLimit ]);
+
+    if (props.defaultFileData !== undefined && props.defaultFileName !== undefined) {
+      setFileAttached(true);
+      setFileError(undefined);
+      setFileName(props.defaultFileName);
+      setInputFileValueData(props.defaultFileData);
+      setIsPreloadedFile(true);
+      setUsedDefaultFileData(true);
+    }
+
+    if (props.errorMessage !== undefined && fileError === undefined) {
+      setFileError(props.errorMessage);
+    }
+  }, [ props.accept, props.defaultFileData, props.errorMessage, props.fileSizeLimit ]);
 
   /**
    * Clears the input file element of any attached files
+   * @param {boolean} resetInvalidStatus
    */
-  const clearFileInputElementValue = () => {
+  const clearFileInputElementValue = (resetInvalidStatus = true) => {
     /* Clear the value set to the file input element */
     const inputFileElement = getInputFileDOMElement();
-    inputFileElement.value = '';
+    htmlElementManager.setDOMElement(inputFileElement);
+    htmlElementManager.setValue('');
+
+    /* Set state to reflect the clear file status */
+    setFileAttached(false);
+    setFileName(undefined);
+    setInputFileValueData(undefined);
+    setIsPreloadedFile(false);
+    if (resetInvalidStatus === true) {
+      setIsInvalidFile(false);
+    }
   };
 
   /**
@@ -72,7 +109,7 @@ const BaseFileInput = props => {
    * @returns {string}
    */
   const getIdFileInputElement = () => {
-    return `${props.id}--input--file-input`;
+    return `${props.id}--file-input`;
   };
 
   /**
@@ -100,13 +137,15 @@ const BaseFileInput = props => {
    */
   const handleOnChangeInputFileElement = () => {
     const inputFileElement = getInputFileDOMElement();
+    htmlElementManager.setDOMElement(inputFileElement);
 
-    if (inputFileElement.files.length === 1) {
+    if (htmlElementManager.isFileListPopulated()) {
       /* Get the name and extension of the current file from the input file element */
-      const uploadFileData = inputFileElement.files[0];
-      const uploadFileName = uploadFileData.name;
-      const uploadFileSize = Number.parseInt(uploadFileData.size / 1024, 10);
-      const uploadFileType = uploadFileData.type;
+      const fileIndex = 0;
+      const uploadFileData = htmlElementManager.getFile(fileIndex);
+      const uploadFileName = htmlElementManager.getFile_Name(fileIndex);
+      const uploadFileSize = htmlElementManager.getFile_SizeMb(fileIndex);
+      const uploadFileType = htmlElementManager.getFile_Type(fileIndex);
 
       /* Determine which "accept" setting is currently being used */
       let acceptTypes = acceptListData.images.types;
@@ -115,17 +154,15 @@ const BaseFileInput = props => {
       }
 
       /* Determine whether a valid file type has been set to the input file element */
-      let invalidFileOutput = 'The file you have selected is invalid.';
+      let invalidFileOutput = '';
       let isValid = true;
-      if (acceptTypes.indexOf(uploadFileType) === -1) {
+      if (acceptTypes.includes(uploadFileType) === false) {
         isValid = false;
-        invalidFileOutput += ` This file format is not supported. This file has an extension of .${uploadFileType.substring(uploadFileType.lastIndexOf('/') + 1)}.`;
-        invalidFileOutput += ` The only supported file types are ${acceptList}.`;
+        invalidFileOutput += `This file format is not supported. The only supported file types are ${acceptList}.`;
       }
       if (uploadFileSize > maximumFileSize) {
         isValid = false;
-        invalidFileOutput += ' The size of this file is too large.';
-        invalidFileOutput += ` The maximum permitted file size is ${maximumFileSize} KB and this files size is ${uploadFileSize} KB.`;
+        invalidFileOutput += `The maximum permitted file size is ${maximumFileSize} KB and this files size is ${uploadFileSize} KB.`;
       }
       if (isValid === true) {
         /* Set all parameters to support a valid file upload */
@@ -133,14 +170,17 @@ const BaseFileInput = props => {
         setFileError(undefined);
         setFileName(uploadFileName);
         setInputFileValueData(uploadFileData);
+        setIsInvalidFile(false);
       } else {
         /* Set all parameters to support an invalid file upload */
-        setFileAttached(false);
         setFileError(invalidFileOutput);
-        setFileName(undefined);
-        setInputFileValueData(undefined);
-        clearFileInputElementValue();
+        setIsInvalidFile(true);
+        clearFileInputElementValue(false);
       }
+    } else {
+      /* Set all parameters to support no file uploaded */
+      setFileError('Please select a file before submitting.');
+      clearFileInputElementValue();
     }
   };
 
@@ -149,8 +189,11 @@ const BaseFileInput = props => {
    * @param {Event} event 
    */
   const handleOnClickLabel = event => {
-    /* Disable click events on the label which will otherwise trigger the file upload OS dialog to open regardless of component state */
-    event.preventDefault();
+    /* Disable click events on the label which will otherwise trigger the file upload OS dialog to open even if a file is already attached */
+    if (props.isDisabled === true || fileAttached === true) {
+      eventManager.setEvent(event);
+      eventManager.preventDefault();
+    }
   };
 
   /**
@@ -160,10 +203,6 @@ const BaseFileInput = props => {
   const handleOnClickRemoveFileButton = () => {
     if (props.isDisabled !== true) {
       clearFileInputElementValue();
-      setFileAttached(false);
-      setFileError(undefined);
-      setFileName(undefined);
-      setInputFileValueData(undefined);
     }
   };
 
@@ -174,13 +213,14 @@ const BaseFileInput = props => {
   const handleOnClickSelectFileButton = () => {
     if (props.isDisabled !== true) {
       const inputFileElement = getInputFileDOMElement();
-      inputFileElement.click();
+      htmlElementManager.setDOMElement(inputFileElement);
+      htmlElementManager.click();
     }
   };
 
   /* Set the styling for the container element */
   const containerCss = 'file-input-container component-container-width background-transparent';
-  
+
   /* Set the styling for any commonly used inner container elements */
   let commonInnerContainerCss = 'file-input-inner-container';
   props.alignment === 'centre' ? commonInnerContainerCss += ' file-input-alignment-centre' : commonInnerContainerCss += ' file-input-alignment-left';
@@ -188,45 +228,57 @@ const BaseFileInput = props => {
   /* Set the styling for the label element */
   const labelCss = 'component-label font-label font-black';
 
+  /* Set the styling for the mandatory checkbox asterisk display */
+  const asteriskCss = 'font-default font-red';
+
+  /* Set the styling for the hidden button element in the DOM */
+  const buttonCss = 'hidden';
+
   /* Set the styling for the file input element */
   const fileInputCss = 'hidden';
 
   /* Set the styling for the error container element */
   let errorMessageContainerCss = 'file-input-error-container font-default font-red';
   props.alignment === 'centre' ? errorMessageContainerCss += ' file-input-alignment-centre' : errorMessageContainerCss += ' file-input-alignment-left';
-  
-  /* Set the error message to be displayed */
-  const errorMessageOutput = fileError !== undefined ? fileError : props.errorMessage;
 
   /* Set the information text for the input file component */
   let paragraphText = '';
-  if (fileAttached === true) {
-    paragraphText = `Your selected file is ready: ${fileName}`;
+  if (fileAttached === true && isPreLoadedFile === false) {
+    paragraphText = `Your file is ready: ${fileName}`;
+  } else if (fileAttached === true && isPreLoadedFile === true) {
+    paragraphText = `You have already selected this file: ${fileName}`;
   } else {
     if (acceptList === acceptListData.pdf.extensions) {
-      paragraphText = 'Click the button below to select a file in .pdf format.';
+      paragraphText = 'Click the button below to choose a file in PDF format.';
     } else {
-      paragraphText = 'Click the button below to select an image file in .png, .jpeg or .jpg formats.';
+      paragraphText = 'Click the button below to select an image file (.png, .jpeg, or .jpg).';
     }
   }
-  
+
+  /* Decide whether this component is a mandatory component or an optional one */
+  let isOptionalFileInput = true;
+  if (props.isDisabled !== true && props.isOptional !== true) {
+    isOptionalFileInput = false;
+  }
+
   return (
     <div className={containerCss}>
       <div className={commonInnerContainerCss}>
         <label className={labelCss} htmlFor={getIdFileInputElement()} id={getIdFileInputLabelElement()} onClick={handleOnClickLabel} tabIndex="-1">
-          {handleOptionalFormFieldTextContent(props.label, props.isOptionalFormField)}
+          {props.label}{isOptionalFileInput === false && <span className={asteriskCss}>&nbsp;*</span>}
         </label>
       </div>
       <ImagePreview alignment={props.alignment} backgroundColour={props.backgroundColour} filePreviewType={props.accept !== undefined ? props.accept : 'images'}
-        id={`${props.id}--base-file-input`} inputFileValue={inputFileValueData} isDisabled={props.isDisabled}
-        isInvalidFile={(fileError !== undefined || props.errorMessage !== undefined)} />
-      <input accept={acceptList} aria-hidden="true" aria-labelledby={getIdFileInputLabelElement()} className={fileInputCss} id={getIdFileInputElement()}
-        onChange={handleOnChangeInputFileElement} name={props.name} tabIndex="-1" type="file" />
+        id={props.id} imageData={inputFileValueData} isDisabled={props.isDisabled} isInvalidFile={isInvalidFile} />
+      <input accept={acceptList} aria-hidden="true" aria-labelledby={getIdFileInputLabelElement()} className={fileInputCss} data-preloaded-end={isPreLoadedFile}
+        data-preloaded-start={usedDefaultFileData} id={getIdFileInputElement()} onChange={handleOnChangeInputFileElement} name={props.name} tabIndex="-1" type="file" />
+      <button aria-hidden={true} className={buttonCss} id={`${getIdFileInputElement()}--clear`} onClick={clearFileInputElementValue} tabIndex={-1}>Clear File Data</button>
       <Paragraph alignment={props.alignment} id={`${props.id}--information--file-input`}>
         {paragraphText}
       </Paragraph>
       {
         fileAttached === true &&
+          /* New file being added - not a preloaded file */
           <Button alignment={props.alignment} backgroundColour={props.backgroundColour} id={`${props.id}--remove-file`} isDisabled={props.isDisabled}
             onClick={handleOnClickRemoveFileButton}>
               Remove File
@@ -240,10 +292,10 @@ const BaseFileInput = props => {
           </Button>
       }
       {
-        (props.errorMessage !== undefined || fileError !== undefined) &&
+        fileError !== undefined &&
           <div className={errorMessageContainerCss}>
-            <span id={`${props.id}--file-input-error-message`}>
-              {errorMessageOutput}
+            <span id={`${props.id}--file-input--error-message`}>
+              {fileError}
             </span>
           </div>
       }
@@ -257,7 +309,10 @@ BaseFileInput.propTypes = {
   alignment: PropTypes.oneOf([ 'centre', 'left' ]),
   /** The background colour for the base file input component. The default colour for the component is white. */
   backgroundColour: PropTypes.oneOf([ 'gold', 'green', 'grey', 'navy-and-gold', 'navy-and-white', 'red', 'white' ]),
-  /** The error message to be output beneath the base file input component. If an error message is to be output then the base file input container will also be put into an error state. */
+  /** The default image data set to the base file input component. This property expects to receive either the imported file data or the path to the data file. */
+  defaultFileData: PropTypes.oneOf([ PropTypes.object, PropTypes.string ]),
+  /** The file name of the default data file. */
+  defaultFileName: PropTypes.string,
   errorMessage: PropTypes.string,
   /** The file size (in KB) which will serve as the maximum permitted file size for upload. The default maximum file size is 20480KB (20MB). */
   fileSizeLimit: PropTypes.number,
@@ -265,8 +320,8 @@ BaseFileInput.propTypes = {
   id: PropTypes.string.isRequired,
   /** Switch to set whether the base file inputs radio buttons and selection button are disabled or not. By default all buttons are enabled. */
   isDisabled: PropTypes.bool,
-  /** Switch to set whether this component is an optional field in a form or not. By default this component is not labelled as optional */
-  isOptionalFormField: PropTypes.bool,
+  /** Switch to set whether this component is an optional field in a form or not. By default this component is not labelled as optional. */
+  isOptional: PropTypes.bool,
   /** The label text content to be linked to the file input component. */
   label: PropTypes.string.isRequired,
   /** The name attribute value to be set to the file input component */

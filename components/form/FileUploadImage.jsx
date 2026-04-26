@@ -14,15 +14,19 @@ import { BaseFileInput } from '../../components';
  * The file upload image component is intended for use with the Main component.
  */
 const FileUploadImage = props => {
-  return <BaseFileInput accept="images" alignment={props.alignment || 'left'} backgroundColour={props.backgroundColour || 'white'} errorMessage={props.errorMessage}
-    fileSizeLimit={props.fileSizeLimit} id={`${props.id}--file-upload-image`} isDisabled={props.isDisabled || false} isOptionalFormField={props.isOptionalFormField || false}
-    label={props.label} name={props.name} />;
+  return <BaseFileInput accept="images" alignment={props.alignment || 'left'} backgroundColour={props.backgroundColour || 'white'} defaultFileData={props.defaultImageData}
+    defaultFileName={props.defaultImageFileName} errorMessage={props.errorMessage} fileSizeLimit={props.fileSizeLimit} id={`${props.id}--file-upload-image`}
+    isDisabled={props.isDisabled || false} isOptional={props.isOptional || false} label={props.label} name={props.name} />;
 }
 FileUploadImage.propTypes = {
   /** The alignment of the file uploader component. All elements in this component by default will be left aligned but can be centre aligned if desired. */
   alignment: PropTypes.oneOf([ 'centre', 'left' ]),
   /** The background colour for the file uploader component. The default colour for the component is white. */
   backgroundColour: PropTypes.oneOf([ 'gold', 'green', 'grey', 'navy-and-gold', 'navy-and-white', 'red', 'white' ]),
+  /** The default image data set to the file uploader component. This property expects to receive either the imported image data or the path to the image file. */
+  defaultImageData: PropTypes.oneOf([ PropTypes.object, PropTypes.string ]),
+  /** The file name for the default image file. */
+  defaultImageFileName: PropTypes.string,
   /** The error message to be output beneath the base file input component. If an error message is to be output then the base file input container will also be put into an error state. */
   errorMessage: PropTypes.string,
   /** The file size (in KB) which will serve as the maximum permitted file size for upload. The default maximum file size is 20480KB (20MB). */
@@ -31,8 +35,8 @@ FileUploadImage.propTypes = {
   id: PropTypes.string.isRequired,
   /** Switch to set whether the file uploaders radio buttons and selection button are disabled or not. By default all buttons are enabled. */
   isDisabled: PropTypes.bool,
-  /** Switch to set whether this component is an optional field in a form or not. By default this component is not labelled as optional */
-  isOptionalFormField: PropTypes.bool,
+  /** Switch to set whether this component is an optional field in a form or not. By default this component is not labelled as optional. */
+  isOptional: PropTypes.bool,
   /** The label text content for the file uploader component. */
   label: PropTypes.string.isRequired,
   /** The name attribute value to be set to the file uploader component */

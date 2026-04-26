@@ -3,6 +3,7 @@
  */
 import React from 'react';
 import { FileUploadImage } from '../../components';
+import storybookLogoSquare from '../images/files/storybook-logo-square.svg';
 
 export default {
   component: FileUploadImage,
@@ -100,7 +101,7 @@ export const AsOptionalFormField = {
   args: {
     backgroundColour: 'navy-and-gold',
     id: 'as-optional-form-field',
-    isOptionalFormField: true,
+    isOptional: true,
     label: 'File Upload Image',
     name: 'as-optional-form-field',
   },
@@ -136,6 +137,18 @@ export const ErrorStateCentreAligned = {
     id: 'file-upload-image-with-error-centre-aligned',
     label: 'File Upload Image (With Error)',
     name: 'with-error-message-centre-aligned',
+  },
+  render: Template_FileUploadImage,
+};
+
+export const WithPreloadedImageData = {
+  args: {
+    backgroundColour: 'gold',
+    defaultImageData: storybookLogoSquare,
+    defaultImageFileName: 'preloaded-image.png',
+    id: 'with-preloaded-image-data',
+    label: 'File Upload Image (Preloaded)',
+    name: 'with-preloaded-image-data',
   },
   render: Template_FileUploadImage,
 };

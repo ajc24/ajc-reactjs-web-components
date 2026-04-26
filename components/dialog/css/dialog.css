@@ -1,0 +1,10 @@
+/**
+ * Developed by Anthony Cox in 2026
+ */
+.dialog-container {
+  display: flex;
+  flex-direction: column;
+  max-width: 1280px;
+  min-width: 360px;
+  width: auto;
+}

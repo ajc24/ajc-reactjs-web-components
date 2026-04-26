@@ -36,6 +36,7 @@ export const WithCentreAlignment = {
     alignment: 'centre',
     id: 'with-centre-alignment',
     label: 'Date Input (Centre Alignment)',
+    name: 'with-centre-alignment',
   },
   render: Template_DateInput,
 };
@@ -45,6 +46,7 @@ export const DisabledState = {
     id: 'disabled-date-input',
     isDisabled: true,
     label: 'Date Input (Disabled)',
+    name: 'disabled-date-input',
   },
   render: Template_DateInput,
 };
@@ -54,6 +56,27 @@ export const ErrorState = {
     errorMessage: 'This is a sample error message.',
     id: 'date-input-with-error',
     label: 'Date Input (With Error)',
+    name: 'date-input-with-error',
+  },
+  render: Template_DateInput,
+};
+
+export const OptionalDateField = {
+  args: {
+    id: 'date-input-optional',
+    isOptional: true,
+    label: 'Date Input (Optional)',
+    name: 'date-input-optional',
+  },
+  render: Template_DateInput,
+};
+
+export const WithCustomDate = {
+  args: {
+    defaultValue: '2002-12-25',
+    id: 'date-input-with-custom-date',
+    label: 'Date Input (With Custom Date)',
+    name: 'date-input-with-custom-date',
   },
   render: Template_DateInput,
 };
@@ -62,6 +85,7 @@ export const MobilePhoneTest = {
   args: {
     id: 'mobile-phone-test',
     label: 'Date Input (Mobile Phone Test)',
+    name: 'mobile-phone-test',
   },
   globals: {
     viewport: {

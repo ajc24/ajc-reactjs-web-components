@@ -41,6 +41,14 @@ export default class EventManager {
   }
 
   /**
+   * Retrieves the value set to the target element which dispatched the current event
+   * @returns {string}
+   */
+  getEventTargetValue() {
+    return `${this.getEventTarget().value}`;
+  }
+
+  /**
    * Prevents the default behaviour for the current event from occurring
    */
   preventDefault() {

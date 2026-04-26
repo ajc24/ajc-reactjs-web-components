@@ -1,0 +1,22 @@
+/**
+ * Developed by Anthony Cox in 2026
+ */
+.dialog-title-container {
+  border-bottom: 1px dotted #000000;
+  border-left: none;
+  border-right: none;
+  border-top: none;
+  display: flex;
+  flex-direction: column;
+  height: 44px;
+  margin: 0px;
+  max-width: 1280px;
+  min-width: 360px;
+  padding-bottom: 5px;
+  padding-top: 5px;
+  width: 100%;
+}
+
+.dialog-title-content-inner {
+  width: auto;
+}

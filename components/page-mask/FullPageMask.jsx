@@ -1,5 +1,11 @@
 /**
  * Developed by Anthony Cox in 2025
+ * 
+ * Revisions (April 2026):
+ * - Added a smoother transition effect for the children components rendered in the full page mask. This was added
+ *   as sometimes you would see elements "jump" from the top of the screen to the centre of the screen as the window
+ *   height was dynamically applied to the full page mask container element. Now the children components will fade in
+ *   more smoothly when the mask is rendered.
  */
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
@@ -41,11 +47,27 @@ const FullPageMask = props => {
   };
 
   /**
+   * Retrieves the DOM element for the full page mask inner row element
+   * @returns {HTMLElement}
+   */
+  const getFullPageMaskInnerRowDOMElement = () => {
+    return document.querySelector(`div[id="${getIdFullPageMaskInnerRowDOMElement()}"]`);
+  };
+
+  /**
    * Retrieves the ID set to the full page mask container element
    * @returns {string}
    */
   const getIdFullPageMaskContainerDOMElement = () => {
     return `${props.id}--full-page-mask`;
+  };
+
+  /**
+   * Retrieves the ID set to the full page mask inner row element
+   * @returns {string}
+   */
+  const getIdFullPageMaskInnerRowDOMElement = () => {
+    return `${props.id}--full-page-mask-inner-row`;
   };
 
   /**
@@ -56,9 +78,12 @@ const FullPageMask = props => {
     keyboardEventManager.setEvent(event);
 
     if (props.isDisplayed === true) {
-      /* Prevent all other key down events from working - we do not want to allow focus to be applied to any components underneath the full page mask */
-      keyboardEventManager.preventDefault();
+      const allowOnKeyDownEvents = props.allowOnKeyDownEvents || false;
 
+      if (allowOnKeyDownEvents === false) {
+        /* Prevent all other key down events from working - we do not want to allow focus to be applied to any components underneath the full page mask */
+        keyboardEventManager.preventDefault();
+      }
       if (props.enableEscapeKey === true && keyboardEventManager.isEscapeKeyEvent() && props.handleEscapeKeyPress !== undefined) {
         /* Invoke the custom follow-on functionality after the escape key press if specified */
         props.handleEscapeKeyPress();
@@ -78,6 +103,11 @@ const FullPageMask = props => {
     /* Set the height for the full page mask container */
     htmlElementManager.setDOMElement(fullPageMaskContainerElement);
     htmlElementManager.setHeight(globalThis.window.innerHeight);
+
+    /* Set the opacity to visible for the full page mask inner row element */
+    const fullPageMaskInnerRowElement = getFullPageMaskInnerRowDOMElement();
+    htmlElementManager.setDOMElement(fullPageMaskInnerRowElement);
+    htmlElementManager.setOpacity_Visible();
   };
 
   /**
@@ -89,6 +119,10 @@ const FullPageMask = props => {
       /* Ensure global key presses are no longer handled since the component will be no longer visible */
       globalThis.window.removeEventListener('keydown', handleOnKeyDown);
     }
+    /* Set the opacity to hidden for the full page mask inner row element */
+    const fullPageMaskInnerRowElement = getFullPageMaskInnerRowDOMElement();
+    htmlElementManager.setDOMElement(fullPageMaskInnerRowElement);
+    htmlElementManager.setOpacity_Hidden();
   };
 
   /* Set the styling for the masks container element */
@@ -106,7 +140,7 @@ const FullPageMask = props => {
         props.isDisplayed === true &&
           <div className={maskContainerCss} id={getIdFullPageMaskContainerDOMElement()}>
             <div className={maskContainerInnerColumnCss}>
-              <div className={maskContainerInnerRowCss}>
+              <div className={maskContainerInnerRowCss} id={getIdFullPageMaskInnerRowDOMElement()}>
                 {props.children}
               </div>
             </div>
@@ -116,6 +150,8 @@ const FullPageMask = props => {
   );
 }
 FullPageMask.propTypes = {
+  /** By default this component prevents onKeyDown events while displayed, except for the escape key. You can disable this onKeyDown event prevention by switching this to true. */
+  allowOnKeyDownEvents: PropTypes.bool,
   /** The content to be rendered centrally horizontally and vertically within the full page mask. */
   children: PropTypes.any,
   /** Switch to enable closing / hiding the loading spinner by using the Escape key on the keyboard. By default this functionality is disabled. */

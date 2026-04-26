@@ -3,14 +3,13 @@
  * 
  * Revisions (January 2026):
  * - Added the ability to set a default value for the text input field.
+ * 
+ * Revisions (February 2026):
+ * - Pushed the ability to set default values for text inputs back to the base form input component instead.
+ * - Cleaned up unused imports and modules after the above change was made.
  */
-import { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { BaseFormInput } from '../../components';
-import { HTMLElementManager } from '../modules';
-
-/* Set up the element manager required by this component */
-const htmlElementManager = new HTMLElementManager();
 
 /**
  * Text Input component allowing a user to enter text data as part of a form in the web application. The text input can be enabled or disabled, it can also
@@ -21,13 +20,6 @@ const htmlElementManager = new HTMLElementManager();
  * This component is intended for use with the Main component.
  */
 const TextInput = props => {
-  useEffect(() => {
-    if (props.defaultValue !== undefined && props.defaultValue.length > 0) {
-      /* Only set a default value for the text input component if one has been declared */
-      setDefaultTextInputValue(props.defaultValue);
-    }
-  }, []);
-
   /**
    * Generates the ID for the input component
    * @returns {string}
@@ -36,30 +28,12 @@ const TextInput = props => {
     return `${props.id}--text-input`;
   };
 
-  /**
-   * Retrieves the DOM element for the input component
-   * @returns {HTMLElement}
-   */
-  const getInputDOMElement = () => {
-    return document.querySelector(`input[id="${getIdInputDOMElement()}"]`);
-  };
-
-  /**
-   * Sets the default value to the input component
-   * @param {string} defaultValue 
-   */
-  const setDefaultTextInputValue = defaultValue => {
-    const textInputElement = getInputDOMElement();
-    htmlElementManager.setDOMElement(textInputElement);
-    htmlElementManager.setValue(defaultValue);
-  };
-
   /* Determine whether an error message is set to the component */
   let isErrorState = false;
   props.errorMessage !== undefined && props.errorMessage.length > 0 ? isErrorState = true : isErrorState = false;
 
-  return <BaseFormInput alignment={props.alignment || 'left'} errorMessage={props.errorMessage} id={getIdInputDOMElement()} isDisabled={props.isDisabled || false}
-    isError={isErrorState} isOptional={props.isOptional}  label={props.label} name={props.name} type="text" />;
+  return <BaseFormInput alignment={props.alignment || 'left'} errorMessage={props.errorMessage} defaultValue={props.defaultValue} id={getIdInputDOMElement()}
+    isDisabled={props.isDisabled || false} isError={isErrorState} isOptional={props.isOptional}  label={props.label} name={props.name} type="text" />;
 }
 TextInput.propTypes = {
   /** The alignment of the text input component. The input field by default will be left aligned but can be centre aligned if desired. */

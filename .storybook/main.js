@@ -14,6 +14,12 @@ const config = {
     '../stories/base/BaseImage.stories.js',
     '../stories/base/BaseMenuBar.stories.js',
 
+    /* Dialog component stories */
+    '../stories/dialog/Dialog.stories.js',
+    '../stories/dialog/DialogButton.stories.js',
+    '../stories/dialog/DialogContent.stories.js',
+    '../stories/dialog/DialogTitle.stories.js',
+
     /* Header component stories */
     '../stories/header/HeaderAll.stories.js',
     '../stories/header/HeaderTallLogo.stories.js',
@@ -44,6 +50,7 @@ const config = {
     '../stories/form/FileUploadImage.stories.js',
     '../stories/form/FileUploadPdf.stories.js',
     '../stories/form/FormComponentsTest.stories.js',
+    '../stories/form/FormDataManager.stories.js',
     '../stories/form/FormManager.stories.js',
     '../stories/form/FormSection.stories.js',
     '../stories/form/PasswordInput.stories.js',
@@ -70,6 +77,9 @@ const config = {
 
     /* Loading component stories */
     '../stories/loading/Spinner.stories.js',
+
+    /* Spacing component stories */
+    '../stories/spacing/HorizontalRule.stories.js',
   ],
   addons: [
     '@storybook/addon-a11y',

@@ -57,7 +57,7 @@ export const ImagePreviewWithValidFile = {
     backgroundColour: 'green',
     filePreviewType: 'images',
     id: 'image-preview-invalid',
-    inputFileValue: storybookLogoSquare,
+    imageData: storybookLogoSquare,
     isInvalidFile: false,
   },
   render: Template_ImagePreview,
@@ -84,7 +84,7 @@ export const PdfPreviewWithValidFile = {
   args: {
     filePreviewType: 'pdf',
     id: 'pdf-preview-invalid',
-    inputFileValue: sharkPdf,
+    imageData: sharkPdf,
     isInvalidFile: false,
   },
   render: Template_ImagePreview,
@@ -95,7 +95,7 @@ export const MobilePhoneTestImagePreview = {
     backgroundColour: 'navy-and-gold',
     filePreviewType: 'images',
     id: 'image-preview-mobile-phone-test',
-    inputFileValue: storybookLogoSquare,
+    imageData: storybookLogoSquare,
     isInvalidFile: false,
   },
   globals: {
@@ -111,7 +111,7 @@ export const MobilePhoneTestPdfPreview = {
   args: {
     filePreviewType: 'pdf',
     id: 'pdf-preview-mobile-phone-test',
-    inputFileValue: sharkPdf,
+    imageData: sharkPdf,
     isInvalidFile: false,
   },
   globals: {

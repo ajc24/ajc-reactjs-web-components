@@ -3,11 +3,22 @@
  * 
  * Revisions (January 2026):
  * - Added the ability to mark the base form input as mandatory (default) or optional.
+ * 
+ * Revisions (February 2026):
+ * - Added the ability to set default values for the text and date input versions of the component. Password inputs do not accept default values.
+ * - Improved logic throughout this component.
  */
 import { useEffect } from 'react';
 import PropTypes from 'prop-types';
+import {
+  DateManager,
+  HTMLElementManager,
+} from '../modules';
 import './css/base-form-input.css';
 import '../css/common.css';
+
+/* Set up the element manager required by this component */
+const htmlElementManager = new HTMLElementManager();
 
 /**
  * Base Form Input component allowing a user to enter text or date data as part of a form in the web application. This baseline
@@ -22,8 +33,16 @@ const BaseFormInput = props => {
 
   useEffect(() => {
     if (props.type === 'date') {
-      /* Set todays date as the default */
-      setDefaultDate();
+      if (props.defaultValue) {
+        /* Set the custom date to the date component */
+        setCustomDate(props.defaultValue);
+      } else {
+        /* Set todays date as the default for the date component */
+        setDefaultDate();
+      }
+    } else if (props.type === 'text' && props.defaultValue !== undefined && props.defaultValue.length > 0) {
+      /* Only set a default value for the text input component if one has been declared */
+      setDefaultTextInputValue(props.defaultValue);
     }
   }, []);
 
@@ -54,23 +73,32 @@ const BaseFormInput = props => {
   };
 
   /**
+   * Sets a custom date value to the date input component.
+   * Custom dates are expected to be in the format YYYY-MM-DD.
+   * @param {string} customDate
+   */
+  const setCustomDate = customDate => {
+    const inputElement = getInputDOMElement();
+    htmlElementManager.setDOMElement(inputElement);
+    htmlElementManager.setValue(`${customDate}`);
+  };
+
+  /**
    * Sets the default date for the component to todays date
    */
   const setDefaultDate = () => {
-    /* Get todays date attributes */
-    const todaysDate = new Date();
-    const date = todaysDate.getDate();
-    const month = todaysDate.getMonth() + 1;
-    const year = todaysDate.getFullYear();
+    const todaysDate = DateManager.getTodaysDate();
+    setCustomDate(`${todaysDate.year}-${todaysDate.month}-${todaysDate.day}`);
+  };
 
-    /* Generate the string output for todays date */
-    const dateOutput = date >= 10 ? `${date}` : `0${date}`;
-    const monthOutput = month >= 10 ? `${month}` : `0${month}`;
-    const yearOutput = `${year}`;
-
-    /* Set the default date to the input element */
-    const inputElement = getInputDOMElement();
-    inputElement.value = `${yearOutput}-${monthOutput}-${dateOutput}`;
+  /**
+   * Sets the default value to the input component
+   * @param {string} defaultValue 
+   */
+  const setDefaultTextInputValue = defaultValue => {
+    const textInputElement = getInputDOMElement();
+    htmlElementManager.setDOMElement(textInputElement);
+    htmlElementManager.setValue(defaultValue);
   };
 
   /* Set the styling for the container element */
@@ -83,7 +111,7 @@ const BaseFormInput = props => {
   /* Set the styling for the label element */
   const labelCss = 'form-input-label font-default font-black';
 
-  /* Set the styling for the mandatory checkbox asterisk display */
+  /* Set the styling for the mandatory form input asterisk display */
   const asteriskCss = 'font-default font-red';
 
   /* Set the styling for the input container element */
@@ -140,6 +168,8 @@ const BaseFormInput = props => {
 BaseFormInput.propTypes = {
   /** The alignment of the form input component. The input field by default will be left aligned but can be centre aligned if desired. */
   alignment: PropTypes.oneOf([ 'centre', 'left' ]),
+  /** The default value for the form input component. This property is used to pass existing values into a form input component in the form. */
+  defaultValue: PropTypes.string,
   /** The error message to be output beneath the input component. If an error message is to be output, then the isError state should also be enabled. */
   errorMessage: PropTypes.string,
   /** The unique identifier for this component. */

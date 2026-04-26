@@ -30,12 +30,40 @@ export default class HTMLElementManager {
   }
 
   /**
+   * Disables the button set as the DOM element currently set to this component
+   * @returns {boolean}
+   */
+  disableButton() {
+    return this.setDisabled_Button(true);
+  }
+
+  /**
+   * Dispatches a change / onChange event on the DOM element currently set to this component
+   * @returns {boolean}
+   */
+  dispatchEvent_Change() {
+    if (this.isValidDOMElement()) {
+      this.getDOMElement().dispatchEvent(new Event('change', { bubbles: true }));
+      return true;
+    }
+    return false;
+  }
+
+  /**
+   * Enables the button set as the DOM element currently set to this component
+   * @returns {boolean}
+   */
+  enableButton() {
+    return this.setDisabled_Button(false);
+  }
+
+  /**
    * Executes the JavaScript focus functionality on the DOM element currently set to this component
    * @returns {boolean}
    */
   focus() {
     if (this.isValidDOMElement()) {
-      this.getDOMElement().focus();
+      this.getDOMElement().focus({ focusVisible: true });
       return true;
     }
     return false;
@@ -135,7 +163,7 @@ export default class HTMLElementManager {
 
   /**
    * Returns the DOM element currently set to this component
-   * @returns {HTMLElement}
+   * @returns {HTMLElement|HTMLSelectElement}
    */
   getDOMElement() {
     return this.#domElement;
@@ -181,7 +209,67 @@ export default class HTMLElementManager {
     }
     return null;
   }
-  
+
+  /**
+   * Gets the specified file from the DOM elements FileList currently set to this component
+   * @param {number} index 
+   * @returns {File | null}
+   */
+  getFile(index) {
+    if (this.isValidDOMElement() && this.isFileListPopulated()) {
+      return this.getDOMElement().files[index];
+    }
+    return null;
+  }
+
+  /**
+   * Gets the name data from the specified file from the DOM elements FileList currently set to this component
+   * @param {number} index
+   * @returns {File | null}
+   */
+  getFile_Name(index) {
+    const currentFile = this.getFile(index);
+    if (currentFile !== null) {
+      return currentFile.name;
+    }
+    return null;
+  }
+
+  /**
+   * Gets the file size data (in bytes) from the specified file from the DOM elements FileList currently set to this component
+   * @param {number} index
+   * @returns {number}
+   */
+  getFile_Size(index) {
+    const currentFile = this.getFile(index);
+    if (currentFile !== null) {
+      return currentFile.size;
+    }
+    return 0;
+  }
+
+  /**
+   * Gets the file size data (in MB) from the specified file from the DOM elements FileList currently set to this component
+   * @param {number} index
+   * @returns {number}
+   */
+  getFile_SizeMb(index) {
+    return Number.parseInt(this.getFile_Size(index) / 1024, 10);
+  }
+
+  /**
+   * Gets the file type data from the specified file from the DOM elements FileList currently set to this component
+   * @param {number} index
+   * @returns {string | null}
+   */
+  getFile_Type(index) {
+    const currentFile = this.getFile(index);
+    if (currentFile !== null) {
+      return currentFile.type;
+    }
+    return null;
+  }
+
   /**
    * Retrieves the height of the DOM element currently set to this component
    * @returns {number}
@@ -257,6 +345,17 @@ export default class HTMLElementManager {
   }
 
   /**
+   * Determines whether the current DOM element contains a populated FileList or not
+   * @returns {boolean}
+   */
+  isFileListPopulated() {
+    if (this.isValidDOMElement()) {
+      return this.getDOMElement().files && this.getDOMElement().files.length >= 1;
+    }
+    return false;
+  }
+
+  /**
    * Checks if a valid DOM element has been set to this component.
    * An invalid element is one that will return a null value.
    * @returns {boolean}
@@ -294,6 +393,19 @@ export default class HTMLElementManager {
   setChecked(checked) {
     if (this.isValidDOMElement()) {
       this.getDOMElement().checked = checked;
+      return true;
+    }
+    return false;
+  }
+
+  /**
+   * Sets the disabled property for a button DOM element
+   * @param {boolean} disabledValue
+   * @returns {boolean}
+   */
+  setDisabled_Button(disabledValue) {
+    if (this.isValidDOMElement()) {
+      this.getDOMElement().disabled = disabledValue;
       return true;
     }
     return false;
@@ -406,6 +518,27 @@ export default class HTMLElementManager {
    */
   setOpacity_Visible() {
     return this.setOpacity(1);
+  }
+
+  /**
+   * Sets the selected option element in the target select element identified by the options value
+   * @param {string} targetOptionValue 
+   * @returns {boolean}
+   */
+  setOptionSelectedByValue(targetOptionValue) {
+    let optionSelected = false;
+    if (this.isValidDOMElement()) {
+      let index = 0;
+      while (index < this.getDOMElement().options.length && optionSelected === false) {
+        const currentOptionValue = this.getDOMElement().options[index].value;
+        if (currentOptionValue === targetOptionValue) {
+          this.getDOMElement().options[index].selected = true;
+          optionSelected = true;
+        }
+        index += 1;
+      }
+    }
+    return optionSelected;
   }
 
   /**

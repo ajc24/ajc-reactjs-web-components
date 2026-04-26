@@ -3,6 +3,7 @@
  */
 import React from 'react';
 import { FileUploadPdf } from '../../components';
+import sharkPdf from '../images/files/shark.pdf';
 
 export default {
   component: FileUploadPdf,
@@ -100,7 +101,7 @@ export const AsOptionalFormField = {
   args: {
     backgroundColour: 'navy-and-gold',
     id: 'as-optional-form-field',
-    isOptionalFormField: true,
+    isOptional: true,
     label: 'File Upload PDF',
     name: 'as-optional-form-field',
   },
@@ -136,6 +137,18 @@ export const ErrorStateCentreAligned = {
     id: 'file-upload-pdf-with-error-centre-aligned',
     label: 'File Upload PDF (With Error)',
     name: 'with-error-message-centre-aligned',
+  },
+  render: Template_FileUploadPdf,
+};
+
+export const WithPreloadedFileData = {
+  args: {
+    backgroundColour: 'gold',
+    defaultFileData: sharkPdf,
+    defaultFileName: 'preloaded-file.pdf',
+    id: 'with-preloaded-file-data',
+    label: 'File Upload PDF (Preloaded)',
+    name: 'with-preloaded-file-data',
   },
   render: Template_FileUploadPdf,
 };

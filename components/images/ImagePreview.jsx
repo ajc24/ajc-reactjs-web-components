@@ -29,8 +29,8 @@ const ImagePreview = props => {
   useEffect(() => {
     /* Set whether this component is in a no file state, is loading a file or has rendered a file */
     if (props.isInvalidFile !== true) {
-      if (isLoadingFileData === false && props.inputFileValue !== undefined && previewData === undefined) {
-        /* An input file value has been set - set this component to its loading state */
+      if (isLoadingFileData === false && props.imageData !== undefined && previewData === undefined) {
+        /* Image data has been set - set this component to its loading state */
         setIsLoadingFileData(true);
         if (props.filePreviewType === 'pdf') {
           /* Set the completed state for a PDF file upload */
@@ -42,11 +42,11 @@ const ImagePreview = props => {
       }
     }
 
-    /* If the input file value property is reset to undefined (ie. image upload is reset to empty / default) then we need to make sure that any preview data is also cleared */
-    if (previewData !== undefined && props.inputFileValue === undefined) {
+    /* If the image data property is reset to undefined (ie. image upload is reset to empty / default) then we need to make sure that any preview data is also cleared */
+    if (previewData !== undefined && props.imageData === undefined) {
       setPreviewData(undefined);
     }
-  }, [ isLoadingFileData, props.inputFileValue ]);
+  }, [ isLoadingFileData, props.imageData ]);
   
   /**
    * Loads the image data from the specified image upload
@@ -59,13 +59,13 @@ const ImagePreview = props => {
       setIsLoadingFileData(false);
     }
     setTimeout(() => {
-      if (typeof props.inputFileValue === 'string') {
+      if (typeof props.imageData === 'string') {
         /* If an image is provided directly via an import it will be loaded as string data - set the preview data to suit and switch off loading state */
-        setPreviewData(props.inputFileValue);
+        setPreviewData(props.imageData);
         setIsLoadingFileData(false);
       } else {
         /* For images that have been uploaded via an input file element - read the data from the file (triggers the onload functionality above) */
-        fileReader.readAsDataURL(props.inputFileValue);
+        fileReader.readAsDataURL(props.imageData);
       }
     }, loadingTimeout);
   };
@@ -76,7 +76,7 @@ const ImagePreview = props => {
   const loadPdfData = () => {
     setTimeout(() => {
       /* Set the preview data to suit and switch off loading state */
-      setPreviewData(props.inputFileValue);
+      setPreviewData(props.imageData);
       setIsLoadingFileData(false);
     }, loadingTimeout);
   };
@@ -133,19 +133,19 @@ const ImagePreview = props => {
     /* Invalid file state */
     icon = <Icon>&#10060;</Icon>;
     supportingText = <SupportingText>This file cannot be previewed</SupportingText>;
-  } else if (isLoadingFileData === false && props.inputFileValue === undefined && previewData === undefined) {
+  } else if (isLoadingFileData === false && props.imageData === undefined && previewData === undefined) {
     /* No file preview state */
     icon = <Icon>&#10067;</Icon>;
     supportingText = <SupportingText>Please select a file to preview</SupportingText>;
-  } else if (isLoadingFileData === true && props.inputFileValue !== undefined && previewData === undefined) {
+  } else if (isLoadingFileData === true && props.imageData !== undefined && previewData === undefined) {
     /* Loading file state */
     icon = <Icon>&#46;&#46;&#46;</Icon>;
     supportingText = <SupportingText>Loading file data. Please wait</SupportingText>;
-  } else if (isLoadingFileData === false && props.inputFileValue !== undefined && previewData !== undefined && (props.filePreviewType === undefined || props.filePreviewType === 'images')) {
+  } else if (isLoadingFileData === false && props.imageData !== undefined && previewData !== undefined && (props.filePreviewType === undefined || props.filePreviewType === 'images')) {
     /* Image preview ready for display - image file */
     icon = <DecorativeImage height="auto" id={`${props.id}--image-preview`} src={previewData} width="328" />;
     supportingText = null;
-  } else if (isLoadingFileData === false && props.inputFileValue !== undefined && previewData !== undefined && props.filePreviewType === 'pdf') {
+  } else if (isLoadingFileData === false && props.imageData !== undefined && previewData !== undefined && props.filePreviewType === 'pdf') {
     /* Image preview ready for display - PDF file */
     icon = <Icon>&#9989;</Icon>;
     supportingText = <SupportingText>This document is loaded</SupportingText>;
@@ -173,8 +173,8 @@ ImagePreview.propTypes = {
   filePreviewType: PropTypes.oneOf([ 'images', 'pdf' ]),
   /** The unique identifier for this component. */
   id: PropTypes.string.isRequired,
-  /** The value property set to the input file DOM element. This property expects to receive the file intended for upload by an end user. */
-  inputFileValue: PropTypes.oneOf([ PropTypes.object, PropTypes.string ]),
+  /** The image data set to the image preview component. This property expects to receive either the imported image data or the path to the image data file. */
+  imageData: PropTypes.oneOf([ PropTypes.object, PropTypes.string ]),
   /** Switch to set whether the component is disabled or not. By default the component is enabled. */
   isDisabled: PropTypes.bool,
   /** Switch to set whether the image preview should highlight that an invalid file type has been provided to the image preview component. By default the component does not show this state. */

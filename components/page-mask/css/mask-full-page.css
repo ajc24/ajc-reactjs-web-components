@@ -27,5 +27,7 @@
   flex-direction: row;
   height: auto;
   justify-content: center;
+  opacity: 0;
+  transition: opacity 250ms ease-out;
   width: 100%;
 }

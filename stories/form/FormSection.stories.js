@@ -34,6 +34,11 @@ const formFieldsData_NoError = [
     label: 'Password Input Field',
     type: 'password',
   },
+  {
+    id: 'form-field-4',
+    label: 'Image File Uploader',
+    type: 'file-image',
+  },
 ];
 const formFieldsData_WithError = [
   {
@@ -53,6 +58,12 @@ const formFieldsData_WithError = [
     id: 'form-field-3',
     label: 'Password Input Field',
     type: 'password',
+  },
+  {
+    errorMessage: 'This image file uploader has a validation error',
+    id: 'form-field-4',
+    label: 'Image File Uploader',
+    type: 'file-image',
   },
 ];
 
@@ -146,6 +157,7 @@ const ClientSideVerificationsTestComponent = () => {
     <React.Fragment>
       <FormSection
         alignment="left"
+        backgroundColour="red"
         description={{ id: 'description-text-client-side-verifications', textContent: 'Click the button underneath the form to perform the Client Side Verifications test.' }}
         form={[
           {
@@ -183,14 +195,44 @@ const ClientSideVerificationsTestComponent = () => {
           },
           {
             id: 'form-field-7',
+            label: 'Image File Uploader',
+            type: 'file-image',
+          },
+          {
+            id: 'form-field-8',
             label: 'Password Input Field 1',
             type: 'password',
           },
           {
-            id: 'form-field-8',
+            id: 'form-field-9',
             isDisabled: true,
             label: 'Password Input Field 2',
             type: 'password',
+          },
+          {
+            id: 'form-field-10',
+            label: 'Date Input Field 1',
+            type: 'date',
+          },
+          {
+            id: 'form-field-11',
+            isDisabled: true,
+            label: 'Date Input Field 2',
+            type: 'date',
+          },
+          {
+            id: 'form-field-12',
+            label: 'Dropdown Menu 1',
+            optionsList: {
+              groupLabel: 'Please Choose a Coat Type',
+              itemsList: [
+                { title: 'Blenheim', value: 'coat-type-blenheim' },
+                { title: 'Ruby', value: 'coat-type-ruby' },
+                { title: 'Black and Tan', value: 'coat-type-black-and-tan' },
+                { title: 'Tricolour', value: 'coat-type-tricolour' },
+              ],
+            },
+            type: 'dropdown',
           },
         ]}
         heading={{ id: 'heading-text-client-side-verifications', textContent: 'Form Section Test' }}
@@ -206,6 +248,7 @@ const ClientSideVerificationsTestComponent = () => {
 
 export const Default = {
   args: {
+    backgroundColour: 'red',
     form: formFieldsData_NoError,
     heading: {
       id: 'default-no-description',
@@ -218,6 +261,7 @@ export const Default = {
 
 export const WithDescription = {
   args: {
+    backgroundColour: 'green',
     description: {
       id: 'description-text-with-description',
       textContent: 'This is the description for the form section content.',
@@ -234,6 +278,7 @@ export const WithDescription = {
 
 export const WithNoBottomBorder = {
   args: {
+    backgroundColour: 'gold',
     description: {
       id: 'description-text-with-no-bottom-border',
       textContent: 'This is the description for the form section content.',
@@ -252,6 +297,7 @@ export const WithNoBottomBorder = {
 export const WithCentreAlignment = {
   args: {
     alignment: 'centre',
+    backgroundColour: 'navy-and-gold',
     description: {
       id: 'description-text-with-centre-alignment',
       textContent: 'This is the description for the form section content.',
@@ -282,6 +328,7 @@ export const MultipleFormSections = {
 
 export const WithErrorMessages = {
   args: {
+    backgroundColour: 'navy-and-white',
     description: {
       id: 'description-text-with-error-messages',
       textContent: 'This is the description for the form section content.',
@@ -307,6 +354,7 @@ export const ClientSideVerificationsTest = {
 
 export const MobilePhoneTest = {
   args: {
+    backgroundColour: 'red',
     description: {
       id: 'description-text-mobile-phone-test',
       textContent: 'This is the description for the form section content.',

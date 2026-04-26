@@ -40,7 +40,7 @@ const optionsListWeekday = {
     { title: 'Tuesday', value: 'title-tuesday' },
     { title: 'Wednesday', value: 'title-wednesday' },
     { title: 'Thursday', value: 'title-thursday' },
-    { title: 'Friday', value: 'title-fridat' },
+    { title: 'Friday', value: 'title-friday' },
   ],
 };
 
@@ -129,6 +129,39 @@ export const ErrorStateCentreAligned = {
     label: 'Dropdown (With Error 2)',
     name: 'with-error-message-centre-aligned',
     optionsList: optionsListTitle,
+  },
+  render: Template_Dropdown,
+};
+
+export const WithPreselectedOption = {
+  args: {
+    id: 'dropdown-with-preselected-option',
+    label: 'Dropdown (With Preselected Option)',
+    name: 'with-preselected-option',
+    optionsList: optionsListWeekday,
+    defaultValue: 'title-wednesday',
+  },
+  render: Template_Dropdown,
+};
+
+export const OptionalDropdown = {
+  args: {
+    id: 'dropdown-optional',
+    label: 'Coat Type',
+    name: 'dropdown-optional',
+    optionsList: optionsListCoatType,
+    isOptional: true,
+  },
+  render: Template_Dropdown,
+};
+
+export const OnChangeEventTest = {
+  args: {
+    id: 'dropdown-on-change-test',
+    label: 'Weekdays',
+    name: 'dropdown-on-change-test',
+    onChange: value => { alert(`Value of the Dropdown Selection: ${value}`); },
+    optionsList: optionsListWeekday,
   },
   render: Template_Dropdown,
 };

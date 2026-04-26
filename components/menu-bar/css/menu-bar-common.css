@@ -8,7 +8,8 @@ button[id$="--scroll-menu-bar-items-right"][class*="background-gold"]:hover,
 button[id$="--close--dropdown-menu-bar-container"][class*="background-gold"]:hover,
 button[id$="--dropdown-menu-bar-button"][class*="background-gold"]:hover,
 button[id$="--button--dropdown-menu-bar-item"][class*="background-gold"]:hover,
-button[id$="--button--dropdown-menu-bar-item"][class*="background-gold"][data-isselected="true"] {
+button[id$="--button--dropdown-menu-bar-item"][class*="background-gold"][data-isselected="true"],
+button[id*="--dialog-button-"][class*="background-gold"]:hover {
   background-color: #FFDF80;
 }
 
@@ -19,7 +20,8 @@ button[id$="--scroll-menu-bar-items-right"][class*="background-green"]:hover,
 button[id$="--close--dropdown-menu-bar-container"][class*="background-green"]:hover,
 button[id$="--dropdown-menu-bar-button"][class*="background-green"]:hover,
 button[id$="--button--dropdown-menu-bar-item"][class*="background-green"]:hover,
-button[id$="--button--dropdown-menu-bar-item"][class*="background-green"][data-isselected="true"] {
+button[id$="--button--dropdown-menu-bar-item"][class*="background-green"][data-isselected="true"],
+button[id*="--dialog-button-"][class*="background-green"]:hover {
   background-color: #00B33C;
   color: #000000;
 }
@@ -31,7 +33,8 @@ button[id$="--scroll-menu-bar-items-right"][class*="background-grey"]:hover,
 button[id$="--close--dropdown-menu-bar-container"][class*="background-grey"]:hover,
 button[id$="--dropdown-menu-bar-button"][class*="background-grey"]:hover,
 button[id$="--button--dropdown-menu-bar-item"][class*="background-grey"]:hover,
-button[id$="--button--dropdown-menu-bar-item"][class*="background-grey"][data-isselected="true"] {
+button[id$="--button--dropdown-menu-bar-item"][class*="background-grey"][data-isselected="true"],
+button[id*="--dialog-button-"][class*="background-grey"]:hover {
   background-color: #999999;
   color: #000000;
 }
@@ -43,7 +46,8 @@ button[id$="--scroll-menu-bar-items-right"][class*="background-navy"]:hover,
 button[id$="--close--dropdown-menu-bar-container"][class*="background-navy"]:hover,
 button[id$="--dropdown-menu-bar-button"][class*="background-navy"]:hover,
 button[id$="--button--dropdown-menu-bar-item"][class*="background-navy"]:hover,
-button[id$="--button--dropdown-menu-bar-item"][class*="background-navy"][data-isselected="true"] {
+button[id$="--button--dropdown-menu-bar-item"][class*="background-navy"][data-isselected="true"],
+button[id*="--dialog-button-"][class*="background-navy"]:hover {
   background-color: #0000B3;
 }
 
@@ -54,7 +58,8 @@ button[id$="--scroll-menu-bar-items-right"][class*="background-red"]:hover,
 button[id$="--close--dropdown-menu-bar-container"][class*="background-red"]:hover,
 button[id$="--dropdown-menu-bar-button"][class*="background-red"]:hover,
 button[id$="--button--dropdown-menu-bar-item"][class*="background-red"]:hover,
-button[id$="--button--dropdown-menu-bar-item"][class*="background-red"][data-isselected="true"] {
+button[id$="--button--dropdown-menu-bar-item"][class*="background-red"][data-isselected="true"],
+button[id*="--dialog-button-"][class*="background-red"]:hover {  
   background-color: #FF6666;
   color: #000000;
 }
@@ -66,7 +71,8 @@ button[id$="--scroll-menu-bar-items-right"][class*="background-white"]:hover,
 button[id$="--close--dropdown-menu-bar-container"][class*="background-white"]:hover,
 button[id$="--dropdown-menu-bar-button"][class*="background-white"]:hover,
 button[id$="--button--dropdown-menu-bar-item"][class*="background-white"]:hover,
-button[id$="--button--dropdown-menu-bar-item"][class*="background-white"][data-isselected="true"] {
+button[id$="--button--dropdown-menu-bar-item"][class*="background-white"][data-isselected="true"],
+button[id*="--dialog-button-"][class*="background-white"]:hover {
   background-color: #E6E6E6;
 }
 

@@ -1,16 +1,24 @@
 /**
  * Developed by Anthony Cox in 2026
+ * 
+ * Revisions (February 2026):
+ * - Added verifications for email addresses, passwords and generic text inputs to check to the presence of illegal special characters.
+ * - Improve verifications around optional form fields so that while some checks are not mandatory on optional fields, others are still performed.
  */
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import {
   Checkbox,
+  DateInput,
+  Dropdown,
+  FileUploadImage,
   Heading,
   Paragraph,
   PasswordInput,
   TextInput,
 } from '../';
 import {
+  DateManager,
   EventManager,
   HTMLElementManager,
 } from '../modules';
@@ -20,7 +28,10 @@ import '../css/common.css';
 /* Set the form IDs data used for locating form elements in the DOM */
 const formIds = {
   checkbox: '--checkbox',
+  date: '--date-input',
+  dropdown: '--dropdown-menu',
   email: '--text-input',
+  ['file-image']: '--file-upload-image--file-input',
   input: '--text-input',
   password: '--password-input',
 };
@@ -28,6 +39,14 @@ const formIds = {
 /* Set up the event and component managers for this component */
 const eventManager = new EventManager();
 const htmlElementManager = new HTMLElementManager();
+
+/* Set the invalid characters lists for the various form fields */
+const genericUserTextInputInvalidCharsList = [
+  "(", ")", "/", "\\", "'", "\"", ",", "`", ";", "&", "<", ">", "!", "#", "$", "%", "^", "*", "+", "=", "{", "}", "[", "]", ":" , "?", "|", "~"
+];
+const userCredentialsInvalidCharsList = [
+  "(", ")", "/", "\\", "'", "\"", ",", "`", ";", "&", "<", ">", "!", "#", "$", "%", "^", "*", "+", "=", "{", "}", "[", "]", ":" , "?", "|", "~"
+];
 
 /**
  * Form Section component allows for forms rendered in web pages to be divided up into separate categories of information.
@@ -101,6 +120,19 @@ const FormSection = props => {
       } else if (currentFormItem.type === 'email' || currentFormItem.type === 'input' || currentFormItem.type === 'password') {
         /* Reset the value of the input field */
         htmlElementManager.setValue('');
+      } else if (currentFormItem.type === 'date') {
+        /* Reset the value of the date to todays date */
+        const todaysDate = DateManager.getTodaysDate();
+        htmlElementManager.setValue(`${todaysDate.year}-${todaysDate.month}-${todaysDate.day}`);
+      } else if (currentFormItem.type === 'dropdown') {
+        /* Reset the dropdown menu selection to the first value in the options list */
+        htmlElementManager.setOptionSelectedByValue(formDOMElement.options[0].value);
+      } else if (currentFormItem.type === 'file-image') {
+        /* Click on the hidden button which will reset the file input component back to its default state */
+        const componentHiddenButtonId = `${componentId}--clear`;
+        const hiddenButtonDOMElement = getFormSectionElementById(componentHiddenButtonId);
+        htmlElementManager.setDOMElement(hiddenButtonDOMElement);
+        htmlElementManager.click();
       }
       index += 1;
     }
@@ -133,13 +165,10 @@ const FormSection = props => {
         isOptional = currentFormItem.isOptional;
       }
 
-      /* Based on the isDisabled and isOptional property values, determine if this form field should be validated or not */
-      const isForValidation = isDisabled === false && isOptional === false;
-
-      if (isForValidation === true) {
+      if (isDisabled === false) {
         /**
-         * This item is to be validated
-         * Perform validation based on which type of element it is
+         * All enabled form items will be validated to some extent.
+         * More thorough checks are used for mandatory fields compared to optional fields.
          */
         const formIdsValue = formIds[`${currentFormItem.type}`];
         const componentId = `${currentFormItem.id}${formIdsValue}`;
@@ -150,8 +179,26 @@ const FormSection = props => {
           /* Validate checkbox item */
           const checkboxInputChecked = htmlElementManager.getAriaChecked();
 
-          if (checkboxInputChecked === false) {
+          if (checkboxInputChecked === false && isOptional === false) {
             currentFormItem.errorMessage = 'Please check this box to proceed.';
+            newFormStatus = false;
+            componentStatus = false;
+          }
+        } else if (currentFormItem.type === 'date') {
+          /* Validate date input entry */
+          const dateInputValue = htmlElementManager.getValue();
+
+          if (dateInputValue.length === 0 && isOptional === false) {
+            currentFormItem.errorMessage = 'Please enter a valid date in the format DD-MM-YYYY.';
+            newFormStatus = false;
+            componentStatus = false;
+          }
+        } else if (currentFormItem.type === 'dropdown') {
+          /* Validate dropdown entry */
+          const dropdownValue = htmlElementManager.getValue();
+
+          if (dropdownValue.length === 0 && isOptional === false) {
+            currentFormItem.errorMessage = 'Please select an option from the list.';
             newFormStatus = false;
             componentStatus = false;
           }
@@ -159,15 +206,48 @@ const FormSection = props => {
           /* Validate email address input entry */
           const emailInputValue = htmlElementManager.getValue();
 
-          if (emailInputValue.length === 0) {
+          if (emailInputValue.length === 0 && isOptional === false) {
             currentFormItem.errorMessage = 'Please provide a valid email address.';
             newFormStatus = false;
             componentStatus = false;
           } else {
-            const lastIndexOfAt = emailInputValue.lastIndexOf('@');
-            const lastIndexOfDot = emailInputValue.lastIndexOf('.');
-            if ((lastIndexOfAt === -1 || lastIndexOfDot === -1) || lastIndexOfAt > lastIndexOfDot) {
-              currentFormItem.errorMessage = 'Please provide a valid email address, e.g. name@host.com.';
+            if (isInvalidCharacterInUserCredentials(emailInputValue) === true) {
+              /* The check for invalid characters for this email address entry has failed its validation */
+              currentFormItem.errorMessage = 'This field contains characters that are not allowed. Please remove them.';
+              newFormStatus = false;
+              componentStatus = false;
+            } else {
+              /* Check if the email address is using the correct syntax */
+              const lastIndexOfAt = emailInputValue.lastIndexOf('@');
+              const lastIndexOfDot = emailInputValue.lastIndexOf('.');
+              if ((lastIndexOfAt === -1 || lastIndexOfDot === -1) || lastIndexOfAt > lastIndexOfDot) {
+                currentFormItem.errorMessage = 'Please provide a valid email address, e.g. name@host.com.';
+                newFormStatus = false;
+                componentStatus = false;
+              }
+            }
+          }
+        } else if (currentFormItem.type === 'file-image') {
+          /* Validate image file upload */
+          const errorMessageRenderIdValue = `${formIdsValue}--error-message`;
+          const errorMessageId = `${currentFormItem.id}${errorMessageRenderIdValue}`;
+          const errorMessageDOMElement = getFormSectionElementById(errorMessageId);
+          htmlElementManager.setDOMElement(errorMessageDOMElement);
+
+          if (htmlElementManager.isValidDOMElement() === true) {
+            /* A pre-existing error message is in the image file uploader component - mark the form validation as failed */
+            newFormStatus = false;
+            componentStatus = false;
+          } else {
+            /* No pre-existing error message - double check if an image file has been uploaded or not */
+            const imagePreviewIdValue = `${currentFormItem.id}--file-upload-image--image-preview--decorative-image`;
+            const imagePreviewDOMElement = getFormSectionElementById(imagePreviewIdValue);
+            htmlElementManager.setDOMElement(imagePreviewDOMElement);
+
+            if (htmlElementManager.isValidDOMElement() === false && isOptional === false) {
+              /* No image file preview is currently rendered - trigger the relevant functionality to produce an error message in the file upload component */
+              htmlElementManager.setDOMElement(formDOMElement);
+              htmlElementManager.dispatchEvent_Change();
               newFormStatus = false;
               componentStatus = false;
             }
@@ -176,8 +256,13 @@ const FormSection = props => {
           /* Validate text input entry */
           const textInputValue = htmlElementManager.getValue();
 
-          if (textInputValue.length === 0) {
+          if (textInputValue.length === 0 && isOptional === false) {
             currentFormItem.errorMessage = 'Please provide some text.';
+            newFormStatus = false;
+            componentStatus = false;
+          } else if (isInvalidCharacterInGenericTextInput(textInputValue) === true) {
+            /* The check for invalid characters for this user text input entry has failed its validation */
+            currentFormItem.errorMessage = 'This field contains characters that are not allowed. Please remove them.';
             newFormStatus = false;
             componentStatus = false;
           }
@@ -185,8 +270,13 @@ const FormSection = props => {
           /* Validate password input entry */
           const passwordInputValue = htmlElementManager.getValue();
 
-          if (passwordInputValue.length === 0) {
+          if (passwordInputValue.length === 0 && isOptional === false) {
             currentFormItem.errorMessage = 'Please provide a valid password.';
+            newFormStatus = false;
+            componentStatus = false;
+          } else if (isInvalidCharacterInUserCredentials(passwordInputValue) === true) {
+            /* The check for invalid characters for this password entry has failed its validation */
+            currentFormItem.errorMessage = 'This field contains characters that are not allowed. Please remove them.';
             newFormStatus = false;
             componentStatus = false;
           }
@@ -203,6 +293,43 @@ const FormSection = props => {
     setFormData(newFormData);
     setFormStatus(newFormStatus);
     setFinishedValidations(true);
+  };
+
+  /**
+   * Checks the generic text input form entry for the presence of invalid characters
+   * @param {string} userEntry 
+   * @returns {boolean}
+   */
+  const isInvalidCharacterInGenericTextInput = userEntry => {
+    return isInvalidCharacterInUserFormEntry(genericUserTextInputInvalidCharsList, userEntry);
+  };
+
+  /**
+   * Checks the specified user entry for the presence of invalid characters
+   * @param {Array.<string>} listOfInvalidChars
+   * @param {string} userEntry 
+   * @returns {boolean}
+   */
+  const isInvalidCharacterInUserFormEntry = (listOfInvalidChars = [], userEntry = '') => {
+    let index = 0;
+    let foundInvalidSpecialCharacter = false;
+    while (index < listOfInvalidChars.length && foundInvalidSpecialCharacter === false) {
+      if (userEntry.includes(listOfInvalidChars[index])) {
+        /* An invalid special character has been found */
+        foundInvalidSpecialCharacter = true;
+      }
+      index += 1;
+    }
+    return foundInvalidSpecialCharacter;
+  };
+
+  /**
+   * Checks the specified user credentials string for the presence of invalid characters
+   * @param {string} userEntry 
+   * @returns {boolean}
+   */
+  const isInvalidCharacterInUserCredentials = userEntry => {
+    return isInvalidCharacterInUserFormEntry(userCredentialsInvalidCharsList, userEntry);
   };
 
   /* Set the CSS styling for the heading and description panel */
@@ -248,6 +375,22 @@ const FormSection = props => {
                 <TextInput alignment={globalAlignment} defaultValue={formField.defaultValue} errorMessage={formField.errorMessage} id={formFieldId}
                   isDisabled={formField.isDisabled} isOptional={formField.isOptional} key={`${formFieldId}-${index}`} label={formField.label} name={formFieldName} />
               )
+            } else if (formField.type === 'date') {
+              return (
+                <DateInput alignment={globalAlignment} defaultValue={formField.defaultValue} errorMessage={formField.errorMessage} id={formFieldId} isDisabled={formField.isDisabled}
+                  isOptional={formField.isOptional} key={`${formFieldId}-${index}`} label={formField.label} name={formFieldName} />
+              )
+            } else if (formField.type === 'dropdown') {
+              return (
+                <Dropdown alignment={globalAlignment} defaultValue={formField.defaultValue} errorMessage={formField.errorMessage} id={formFieldId} isDisabled={formField.isDisabled}
+                  isOptional={formField.isOptional} key={`${formFieldId}-${index}`} label={formField.label} name={formFieldName} optionsList={formField.optionsList} />
+              )
+            } else if (formField.type === 'file-image') {
+              return (
+                <FileUploadImage alignment={globalAlignment} backgroundColour={props.backgroundColour || 'white'} defaultImageData={formField.defaultFileData}
+                  defaultImageFileName={formField.defaultFileName} errorMessage={formField.errorMessage} fileSizeLimit={formField.fileSizeLimit} id={formFieldId}
+                  isDisabled={formField.isDisabled} isOptional={formField.isOptional} key={`${formFieldId}-${index}`} label={formField.label} name={formFieldName} />
+              )
             } else if (formField.type === 'password') {
               return (
                 <PasswordInput alignment={globalAlignment} defaultValue={formField.defaultValue} errorMessage={formField.errorMessage} id={formFieldId}
@@ -265,6 +408,8 @@ const FormSection = props => {
 FormSection.propTypes = {
   /** The alignment of the form section component. By default all form content will be left aligned but can be centre aligned if desired. */
   alignment: PropTypes.oneOf([ 'centre', 'left' ]),
+  /** The background colour for the elements in the form section component. The default colour for the all components is white. */
+  backgroundColour: PropTypes.oneOf([ 'gold', 'green', 'grey', 'navy-and-gold', 'navy-and-white', 'red', 'white' ]),
   /** An optional description for the form section component. This description will be rendered below the heading and above the form itself. */
   description: PropTypes.shape({
     id: PropTypes.string,
@@ -273,14 +418,26 @@ FormSection.propTypes = {
   /** The list of form components to be rendered in this form section. */
   form: PropTypes.arrayOf([
     PropTypes.shape({
+      defaultFileData: PropTypes.oneOf([ PropTypes.object, PropTypes.string ]),
+      defaultFileName: PropTypes.string,
       defaultSelection: PropTypes.bool,
       defaultValue: PropTypes.string,
       errorMessage: PropTypes.string,
+      fileSizeLimit: PropTypes.number,
       id: PropTypes.string.isRequired,
       isDisabled: PropTypes.bool,
       isOptional: PropTypes.bool,
       label: PropTypes.string.isRequired,
-      type: PropTypes.oneOf([ 'checkbox', 'email', 'input', 'password' ]).isRequired,
+      optionsList: PropTypes.shape({
+        groupLabel: PropTypes.string,
+        itemsList: PropTypes.arrayOf(
+          PropTypes.shape({
+            title: PropTypes.string,
+            value: PropTypes.string,
+          }),
+        ),
+      }),
+      type: PropTypes.oneOf([ 'checkbox', 'date', 'dropdown', 'email', 'file-image', 'input', 'password' ]).isRequired,
     }),
   ]).isRequired,
   /** The heading text content for the form section component. The heading text content will always precede the form itself. */

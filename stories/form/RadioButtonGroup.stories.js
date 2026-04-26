@@ -259,7 +259,7 @@ export const InErrorStateTest = {
   render: () => {
     return <React.Fragment>
       <RadioButtonGroup errorMessage="This is a sample error message." id="radio-button-group-1" label="Please select a form of contact:" radioButtonsList={radioButtonsListData_Contact} />
-      <RadioButtonGroup errorMessage="This is a sample error message." id="disabled-radio-button-group-2" label="Please select a car (disabled):" radioButtonsList={radioButtonsListData_Cars} />
+      <RadioButtonGroup errorMessage="This is a sample error message." id="disabled-radio-button-group-2" isDisabled={true} label="Please select a car (disabled):" radioButtonsList={radioButtonsListData_Cars} />
       <RadioButtonGroup errorMessage="This is a sample error message." id="radio-button-group-3" label="Please select the food you would like:" radioButtonsList={radioButtonsListData_Food} />
     </React.Fragment>
   },

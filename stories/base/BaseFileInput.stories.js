@@ -3,6 +3,8 @@
  */
 import React from 'react';
 import { BaseFileInput } from '../../components';
+import sharkPdf from '../images/files/shark.pdf';
+import storybookLogoSquare from '../images/files/storybook-logo-square.svg';
 
 export default {
   component: BaseFileInput,
@@ -111,7 +113,7 @@ export const AsOptionalFormField = {
     accept: 'images',
     backgroundColour: 'red',
     id: 'as-optional-form-field',
-    isOptionalFormField: true,
+    isOptional: true,
     label: 'Base File Input',
   },
   render: Template_BaseFileInput,
@@ -148,25 +150,38 @@ export const DisabledFocusTest = {
   },
 };
 
-export const ErrorState = {
+export const WithPreloadedImageData = {
   args: {
-    backgroundColour: 'gold',
-    errorMessage: 'This is a sample error message.',
-    id: 'base-file-input-with-error',
-    label: 'Base File Input (With Error)',
-    name: 'with-error-message',
+    backgroundColour: 'green',
+    defaultFileData: storybookLogoSquare,
+    defaultFileName: 'preloaded-file.png',
+    id: 'with-preloaded-image-data',
+    label: 'Base File Input (Preloaded)',
+    name: 'with-preloaded-image-data',
   },
   render: Template_BaseFileInput,
 };
 
-export const ErrorStateCentreAligned = {
+export const WithPreloadedPdfData = {
   args: {
-    alignment: 'centre',
-    backgroundColour: 'red',
-    errorMessage: 'This is a sample error message.',
-    id: 'base-file-input-with-error-centre-aligned',
-    label: 'Base File Input (With Error)',
-    name: 'with-error-message-centre-aligned',
+    accept: 'pdf',
+    backgroundColour: 'navy-and-white',
+    defaultFileData: sharkPdf,
+    defaultFileName: 'preloaded-file.pdf',
+    id: 'with-preloaded-pdf-data',
+    label: 'Base File Input (Preloaded)',
+    name: 'with-preloaded-pdf-data',
+  },
+  render: Template_BaseFileInput,
+};
+
+export const WithCustomErrorMessage = {
+  args: {
+    backgroundColour: 'green',
+    errorMessage: 'This is a custom error message',
+    id: 'with-custom-error-message',
+    label: 'Base File Input (Error Message)',
+    name: 'with-custom-error-message',
   },
   render: Template_BaseFileInput,
 };

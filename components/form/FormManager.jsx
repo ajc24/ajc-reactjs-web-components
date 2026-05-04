@@ -22,11 +22,6 @@ import {
 /* Set the placeholder ID for the submit button component */
 const submitButtonIdPlaceholder = '--submit-button--base-button';
 
-/* Create the element and event managers used by this component */
-const eventManager = new EventManager();
-const htmlElementManager = new HTMLElementManager();
-const keyboardEventManager = new KeyboardEventManager();
-
 /**
  * Form Manager component allows for a complete form to be rendered and will automatically handle the full form submission process.
  * 
@@ -106,6 +101,7 @@ const FormManager = props => {
   const focusOnSubmitButtonDOMElement = () => {
     setTimeout(() => {
       /* Add a small wait time to this instruction to give all other DOM updates a chance to finish (ie. such as hiding the full page mask) */
+      const htmlElementManager = new HTMLElementManager();
       const submitButtonElement = getSubmitButtonDOMElement();
       htmlElementManager.setDOMElement(submitButtonElement);
       htmlElementManager.focus();
@@ -123,6 +119,7 @@ const FormManager = props => {
 
     /* Create the form data */
     const formData = new FormData(formElement, submitButtonElement);
+    const htmlElementManager = new HTMLElementManager();
 
     /* Cycle through all expected form data elements and ensure the data is as expected */
     let sectionIndex = 0;
@@ -316,6 +313,7 @@ const FormManager = props => {
    * @param {Event} event 
    */
   const handleOnFormSubmit = event => {
+    const eventManager = new EventManager();
     eventManager.setEvent(event);
     eventManager.preventDefault();
   };
@@ -326,10 +324,11 @@ const FormManager = props => {
    * @param {Event} event
    */
   const handleOnKeyDownFormSubmit = event => {
+    const keyboardEventManager = new KeyboardEventManager();
     keyboardEventManager.setEvent(event);
     if (keyboardEventManager.isEnterKeyEvent() && keyboardEventManager.getEventTargetId() !== `${getIdSubmitButtonDOMElement()}${submitButtonIdPlaceholder}`) {
       /* A keyboard event on a form element other than the submit button has been dispatched. Prevent the form from submitting. */
-      event.preventDefault();
+      keyboardEventManager.preventDefault();
     }
   };
 
@@ -356,7 +355,7 @@ const FormManager = props => {
       
       /* Set the verifications process to go to the next stage */
       setVerificationsStage(verificationsStage + 1);
-    }, fullPageMaskWaitTime);
+    }, fullPageMaskWaitTime.long);
   };
 
   /**
@@ -375,6 +374,7 @@ const FormManager = props => {
      */
     const clickHiddenButtonDOMElements = index => {
       const formSectionElement = getFormSectionCsvHiddenButtonDOMElement(index);
+      const htmlElementManager = new HTMLElementManager();
       htmlElementManager.setDOMElement(formSectionElement);
       htmlElementManager.click();
 
@@ -498,14 +498,18 @@ const FormManager = props => {
     if (csvResponse === false || (ssvResponse.response === false && Object.keys(ssvResponse).length > 1)) {
       if (props.invalidFormEntriesDialogData !== undefined) {
         /* Show invalid form entries dialog */
-        setShowInvalidFormEntriesDialog(true);
+        setTimeout(() => {
+          setShowInvalidFormEntriesDialog(true);
+        }, fullPageMaskWaitTime.short);
       }
       /* Restore focus back to the submit button on ending the verifications process */
       focusOnSubmitButtonDOMElement();
     } else if (ssvResponse.response === false && Object.keys(ssvResponse).length === 1) {
       if (props.serverErrorDialogData !== undefined) {
         /* Show server error dialog */
-        setShowServerErrorDialog(true);
+        setTimeout(() => {
+          setShowServerErrorDialog(true);
+        }, fullPageMaskWaitTime.short);
       }
       /* Restore focus back to the submit button on ending the verifications process */
       focusOnSubmitButtonDOMElement();
@@ -522,6 +526,7 @@ const FormManager = props => {
         while (formSectionIndex < formSections.length) {
           /* Click the hidden button to activate the clear all entries functionality for the current form section */
           const clearButtonElement = getFormSectionClearHiddenButtonDOMElement(formSectionIndex);
+          const htmlElementManager = new HTMLElementManager();
           htmlElementManager.setDOMElement(clearButtonElement);
           htmlElementManager.click();
           formSectionIndex += 1;
@@ -529,7 +534,9 @@ const FormManager = props => {
       }
       if (props.successfulFormSubmissionDialogData !== undefined) {
         /* Show the successful form submission dialog only if it has been declared */
-        setShowSuccessfulFormSubmissionDialog(true);
+        setTimeout(() => {
+          setShowSuccessfulFormSubmissionDialog(true);
+        }, fullPageMaskWaitTime.short);
       } else if (props.onSuccessfulSubmit !== undefined) {
         /* Execute the onSuccessfulSubmit functionality only if it has been declared */
         props.onSuccessfulSubmit();
@@ -561,7 +568,7 @@ const FormManager = props => {
           {props.submitButtonTextContent || 'Submit'}
         </SubmitButton>
       </form>
-      <Spinner colour={props.backgroundColour || 'white'} enableEscapeKey={false} id={getIdFormDOMElement()} isDisplayed={showLoadingSpinner}>
+      <Spinner colour={props.backgroundColour || 'white'} id={`${getIdFormDOMElement()}--processing`} isDisplayed={showLoadingSpinner}>
         {props.spinnerTextContent || 'Loading...'}
       </Spinner>
       {

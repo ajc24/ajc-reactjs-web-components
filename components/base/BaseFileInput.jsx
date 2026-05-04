@@ -16,10 +16,6 @@ import {
 import './css/base-file-input.css';
 import '../css/common.css';
 
-/* Create the event and element managers for this component */
-const eventManager = new EventManager();
-const htmlElementManager = new HTMLElementManager();
-
 /* Data for which file types are accepted by the file input element */
 const acceptListData = {
   images: {
@@ -91,6 +87,7 @@ const BaseFileInput = props => {
   const clearFileInputElementValue = (resetInvalidStatus = true) => {
     /* Clear the value set to the file input element */
     const inputFileElement = getInputFileDOMElement();
+    const htmlElementManager = new HTMLElementManager();
     htmlElementManager.setDOMElement(inputFileElement);
     htmlElementManager.setValue('');
 
@@ -137,6 +134,7 @@ const BaseFileInput = props => {
    */
   const handleOnChangeInputFileElement = () => {
     const inputFileElement = getInputFileDOMElement();
+    const htmlElementManager = new HTMLElementManager();
     htmlElementManager.setDOMElement(inputFileElement);
 
     if (htmlElementManager.isFileListPopulated()) {
@@ -191,6 +189,7 @@ const BaseFileInput = props => {
   const handleOnClickLabel = event => {
     /* Disable click events on the label which will otherwise trigger the file upload OS dialog to open even if a file is already attached */
     if (props.isDisabled === true || fileAttached === true) {
+      const eventManager = new EventManager();
       eventManager.setEvent(event);
       eventManager.preventDefault();
     }
@@ -213,6 +212,7 @@ const BaseFileInput = props => {
   const handleOnClickSelectFileButton = () => {
     if (props.isDisabled !== true) {
       const inputFileElement = getInputFileDOMElement();
+      const htmlElementManager = new HTMLElementManager();
       htmlElementManager.setDOMElement(inputFileElement);
       htmlElementManager.click();
     }

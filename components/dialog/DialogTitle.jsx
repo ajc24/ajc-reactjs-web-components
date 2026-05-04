@@ -10,10 +10,6 @@ import '../css/common.css';
 
 const maximumHeadingHeight = 45;
 
-/* Set up the component managers for this component */
-const htmlElementManager = new HTMLElementManager();
-htmlElementManager.setMaxContainerHeight(maximumHeadingHeight);
-
 /**
  * Dialog Title component which renders a heading intended for use as the title of a dialog. The text content in the
  * heading is left aligned at all times. The font size of the text content is 1em (18px).
@@ -47,6 +43,8 @@ const DialogTitle = props => {
    * needs to be truncated to fit within the maximum height of the dialog title container.
    */
   const handleScreenWidth = () => {
+    const htmlElementManager = new HTMLElementManager();
+    htmlElementManager.setMaxContainerHeight(maximumHeadingHeight);
     htmlElementManager.setDOMElement(getHeading1DOMElement());
     htmlElementManager.truncateElementTextContentByContainerHeight();
   }

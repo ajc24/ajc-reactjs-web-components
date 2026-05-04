@@ -17,11 +17,6 @@ import '../css/common.css';
 import './css/menu-bar-common.css';
 import './css/menu-bar-scroll-items.css';
 
-/* Create the event managers for this component */
-const htmlElementManager = new HTMLElementManager();
-const eventManager = new EventManager();
-const keyboardEventManager = new KeyboardEventManager();
-
 /**
  * Scroll Menu Bar Items Left button component intended for use with the Menu Bar component. This component allows a user to click to view the previous set
  * of menu bar items in the menu bar. This button is necessary in circumstances where there are too many menu bar items to comfortably fit within the width
@@ -58,6 +53,7 @@ const ScrollMenuBarItemsLeft = props => {
       props.onClick();
     } else {
       /* Default action is to prevent the click event from occurring */
+      const eventManager = new EventManager();
       eventManager.setEvent(event);
       eventManager.preventDefault();
     }
@@ -68,9 +64,11 @@ const ScrollMenuBarItemsLeft = props => {
    * @param {Event} event 
    */
   const handleOnKeyDown = event => {
+    const keyboardEventManager = new KeyboardEventManager();
     keyboardEventManager.setEvent(event);
     if (keyboardEventManager.isSpaceKeyEvent()) {
       /* Ensure that a spacebar key press also correctly fires a click event on the button */
+      const htmlElementManager = new HTMLElementManager();
       htmlElementManager.setDOMElement(keyboardEventManager.getEventTarget());
       htmlElementManager.click();
     }
@@ -80,6 +78,7 @@ const ScrollMenuBarItemsLeft = props => {
    * Sets the scroll menu bar items left button as hidden in the UI 
    */
   const setContainerDOMElementAsHidden = () => {
+    const htmlElementManager = new HTMLElementManager();
     htmlElementManager.setDOMElement(getContainerDOMElement());
     htmlElementManager.setOpacity_Hidden();
   };
@@ -88,6 +87,7 @@ const ScrollMenuBarItemsLeft = props => {
    * Sets the scroll menu bar items left button as visible in the UI
    */
   const setContainerDOMElementAsVisible = () => {
+    const htmlElementManager = new HTMLElementManager();
     htmlElementManager.setDOMElement(getContainerDOMElement());
     htmlElementManager.setOpacity_Visible();
   };

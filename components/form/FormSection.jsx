@@ -36,10 +36,6 @@ const formIds = {
   password: '--password-input',
 };
 
-/* Set up the event and component managers for this component */
-const eventManager = new EventManager();
-const htmlElementManager = new HTMLElementManager();
-
 /* Set the invalid characters lists for the various form fields */
 const genericUserTextInputInvalidCharsList = [
   "(", ")", "/", "\\", "'", "\"", ",", "`", ";", "&", "<", ">", "!", "#", "$", "%", "^", "*", "+", "=", "{", "}", "[", "]", ":" , "?", "|", "~"
@@ -100,6 +96,7 @@ const FormSection = props => {
    * Performs the functionality to clear all entries from this form section
    */
   const handleClearFormEntries = event => {
+    const eventManager = new EventManager();
     eventManager.setEvent(event);
     eventManager.preventDefault();
 
@@ -110,6 +107,7 @@ const FormSection = props => {
       const formIdsValue = formIds[`${currentFormItem.type}`];
       const componentId = `${currentFormItem.id}${formIdsValue}`;
       const formDOMElement = getFormSectionElementById(componentId);
+      const htmlElementManager = new HTMLElementManager();
       htmlElementManager.setDOMElement(formDOMElement);
 
       if (currentFormItem.type === 'checkbox') {
@@ -142,6 +140,8 @@ const FormSection = props => {
    * Performs all client side verifications for all form fields and returns the response
    */
   const handleClientSideVerifications = event => {
+    const htmlElementManager = new HTMLElementManager();
+    const eventManager = new EventManager();
     eventManager.setEvent(event);
     eventManager.preventDefault();
 

@@ -13,11 +13,6 @@ import '../css/common.css';
 
 const maximumBaseButtonTextContentHeight = 45;
 
-const htmlElementManager = new HTMLElementManager();
-htmlElementManager.setMaxContainerHeight(maximumBaseButtonTextContentHeight);
-
-const mouseEventManager = new MouseEventManager();
-
 /**
  * Base button component allowing for a render of a Button or Submit button type in a form in a web application.
  * 
@@ -46,6 +41,7 @@ const BaseButton = props => {
    * @param {Event} event 
    */
   const handleClickButton = event => {
+    const mouseEventManager = new MouseEventManager();
     mouseEventManager.setEvent(event);
     mouseEventManager.preventDefault();
     if (mouseEventManager.isLeftClickEvent() === true && props.onClick !== undefined) {
@@ -59,6 +55,8 @@ const BaseButton = props => {
    * should not exceed the height of the button container itself.
    */
   const handleTextContentHeight = () => {
+    const htmlElementManager = new HTMLElementManager();
+    htmlElementManager.setMaxContainerHeight(maximumBaseButtonTextContentHeight);
     htmlElementManager.setDOMElement(getSpanDOMElement());
     htmlElementManager.truncateElementTextContentByContainerHeight();
   };

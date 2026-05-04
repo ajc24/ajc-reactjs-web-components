@@ -11,9 +11,6 @@ import { HTMLElementManager } from '../modules';
 import '../css/common.css';
 import './css/text-application-subtitle.css';
 
-/* Set up the component managers used by this component */
-const htmlElementManager = new HTMLElementManager();
-
 /**
  * Application subtitle text component which renders the supporting text for the title text of the web application to the user. This component is
  * intended for use underneath the Application Title Text component, rendered inside both the default and tall Header components but can also be rendered
@@ -95,6 +92,7 @@ const ApplicationSubtitleText = props => {
    */
   const handleVisibility = () => {
     let isHidden = false;
+    const htmlElementManager = new HTMLElementManager();
     htmlElementManager.setDOMElement(getContainerDOMElement());
     
     if (htmlElementManager.isValidDOMElement()) {
@@ -129,6 +127,7 @@ const ApplicationSubtitleText = props => {
    * process is not already active in the browser. Follows this action by marking the resizing process as active.
    */
   const setRightmostSubtitleTextPosition = () => {
+    const htmlElementManager = new HTMLElementManager();
     htmlElementManager.setDOMElement(getParagraphDOMElement());
     if (isResizing === false) {
       if (isSubtitleTextHidden === false) {

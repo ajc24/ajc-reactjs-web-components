@@ -20,9 +20,6 @@ const menuBarItemAnimationTime = 250;
 const menuBarItemWidth = 100;
 const menuBarItemWidthWithMargin = 108;
 
-/* Set up the component managers for this component */
-const htmlElementManager = new HTMLElementManager();
-
 /**
  * Menu Bar component to be used in the web application. This component allows for a number of menu bar items and
  * dropdown menu items to be rendered, each offering navigation options for the user to navigate around the application.
@@ -160,6 +157,7 @@ const MenuBar = props => {
    */
   const setCentralContentWidth = () => {
     /* Determine the current width of the central content element */
+    const htmlElementManager = new HTMLElementManager();
     htmlElementManager.setDOMElement(getCentralContentElement());
     const centralContentDimensions = htmlElementManager.getBoundingClientRect();
     let centralContentWidth = centralContentDimensions.width;

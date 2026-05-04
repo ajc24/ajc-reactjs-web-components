@@ -312,6 +312,17 @@ export default class HTMLElementManager {
   }
 
   /**
+   * Retrieves the tab index of the DOM element currently set to this component
+   * @returns {number}
+   */
+  getTabIndex() {
+    if (this.isValidDOMElement()) {
+      return this.getDOMElement().tabIndex;
+    }
+    return -1;
+  }
+
+  /**
    * Retrieves the text content output in the DOM element currently set to this component
    * @returns {string}
    */
@@ -380,6 +391,19 @@ export default class HTMLElementManager {
   requestSubmit() {
     if (this.isValidDOMElement()) {
       this.getDOMElement().requestSubmit();
+      return true;
+    }
+    return false;
+  }
+
+  /**
+   * Sets the background colour of the current DOM element set to this component
+   * @param {string} backgroundColour
+   * @returns {boolean}
+   */
+  setBackgroundColour(backgroundColour) {
+    if (this.isValidDOMElement()) {
+      this.getDOMElement().style.backgroundColor = backgroundColour;
       return true;
     }
     return false;
@@ -555,6 +579,19 @@ export default class HTMLElementManager {
   }
 
   /**
+   * Sets the tab index of the current DOM element set to this component
+   * @param {number} tabIndex
+   * @returns {boolean}
+   */
+  setTabIndex(tabIndex) {
+    if (this.isValidDOMElement()) {
+      this.getDOMElement().tabIndex = tabIndex;
+      return true;
+    }
+    return false;
+  }
+
+  /**
    * Sets the text alignment to a value that marks the DOM element as being center aligned
    * @returns {boolean}
    */
@@ -658,6 +695,19 @@ export default class HTMLElementManager {
   setWidth(width) {
     if (this.isValidDOMElement()) {
       this.getDOMElement().style.width = `${width}px`;
+      return true;
+    }
+    return false;
+  }
+
+  /**
+   * Sets the z-index of the current DOM element set to this component
+   * @param {number} zIndex
+   * @returns {boolean}
+   */
+  setZIndex(zIndex) {
+    if (this.isValidDOMElement()) {
+      this.getDOMElement().style.zIndex = zIndex;
       return true;
     }
     return false;

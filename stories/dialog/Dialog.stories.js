@@ -126,7 +126,9 @@ const DialogTest = props => {
 
   return (
     <React.Fragment>
-      <button id="show-dialog" onClick={handleOnClick}>Show Dialog (Esc to Exit)</button>
+      <p>Clicking the button below will render the dialog.</p>
+      <p>The dialog can be closed by clicking any of the buttons inside the dialog or by pressing the Escape key.</p>
+      <button id="show-dialog" onClick={handleOnClick}>Show Dialog</button>
       <Dialog backgroundColour={props.backgroundColour} buttonColour={props.buttonColour} buttonData={buttonData} contentData={props.contentData}
         dialogTitleTextContent={props.dialogTitleTextContent} handleEscapeKeyPress={() => setIsDisplayed(false)} id="dialog-test" isDisplayed={isDisplayed} />
     </React.Fragment>

@@ -11,9 +11,6 @@ import './css/text-application-title.css';
 const maxEm = 3;
 const truncateTextHeightCutoff = 95;
 
-/* Set up the component managers for this component */
-const htmlElementManager = new HTMLElementManager();
-
 /**
  * Application title text component which renders the name / title of the web application to the user. This component is intended for use in both
  * the default and tall Header components but can also be rendered standalone. The title text content can be left aligned or centre aligned.
@@ -52,6 +49,7 @@ const ApplicationTitleText = props => {
    * @returns {number}
    */
   const getContainerDOMElement_RightmostPos = () => {
+    const htmlElementManager = new HTMLElementManager();
     htmlElementManager.setDOMElement(getContainerDOMElement());
     return htmlElementManager.getRight();
   };
@@ -69,6 +67,7 @@ const ApplicationTitleText = props => {
    * @returns {number}
    */
   const getHeading1DOMElement_Height = () => {
+    const htmlElementManager = new HTMLElementManager();
     htmlElementManager.setDOMElement(getHeading1DOMElement());
     return htmlElementManager.getHeight();
   };
@@ -78,6 +77,7 @@ const ApplicationTitleText = props => {
    * @returns {number}
    */
   const getHeading1DOMElement_RightmostPos = () => {
+    const htmlElementManager = new HTMLElementManager();
     htmlElementManager.setDOMElement(getHeading1DOMElement());
     return htmlElementManager.getRight();
   };
@@ -87,6 +87,7 @@ const ApplicationTitleText = props => {
    * @returns {string}
    */
   const getHeading1DOMElement_TextContent = () => {
+    const htmlElementManager = new HTMLElementManager();
     htmlElementManager.setDOMElement(getHeading1DOMElement());
     return htmlElementManager.getTextContent();
   };
@@ -121,6 +122,7 @@ const ApplicationTitleText = props => {
     let containerRightPos = getContainerDOMElement_RightmostPos();
     
     /* Set the heading 1 DOM element to the component manager */
+    const htmlElementManager = new HTMLElementManager();
     htmlElementManager.setDOMElement(getHeading1DOMElement());
 
     /* Steadily reduce the font size until the text fits on-screen - do not drop below 2em font size */
@@ -151,6 +153,7 @@ const ApplicationTitleText = props => {
    */
   const resetTitleTextContentToDefault = () => {
     /* Set the heading 1 element as the source */
+    const htmlElementManager = new HTMLElementManager();
     htmlElementManager.setDOMElement(getHeading1DOMElement());
 
     /* Restore the full text content to the heading element by applying the full aria-label text value to the heading element */
@@ -168,6 +171,7 @@ const ApplicationTitleText = props => {
    * @returns {boolean}
    */
   const setHeading1DOMElement_TextContent = newTextContent => {
+    const htmlElementManager = new HTMLElementManager();
     htmlElementManager.setDOMElement(getHeading1DOMElement());
     return htmlElementManager.setTextContent(newTextContent);
   };

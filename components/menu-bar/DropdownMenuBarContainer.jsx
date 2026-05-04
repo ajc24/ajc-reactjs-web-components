@@ -26,13 +26,6 @@ const maximumHyperlinkTitleHeight = 23;
 const menuBarItemHyperlinkId = '--menu-bar-item-hyperlink';
 const rightmostScreenPadding = 16;
 
-/* Set up the component and event managers for this component */
-const htmlElementManager = new HTMLElementManager();
-htmlElementManager.setMaxContainerHeight(maximumHyperlinkTitleHeight);
-
-const eventManager = new EventManager();
-const keyboardEventManager = new KeyboardEventManager();
-
 /**
  * Dropdown Menu Bar Container component which is used to render the hyperlinks associated with a dropdown menu item.
  * This component is intended for use with the Menu Bar component. It has been designed to fit within the boundaries
@@ -99,6 +92,7 @@ const DropdownMenuBarContainer = props => {
    * @returns {HTMLElement | null}
    */
   const getFirstHyperlinkDOMElement = () => {
+    const htmlElementManager = new HTMLElementManager();
     htmlElementManager.setDOMElements(getAllHyperlinkDOMElements());
     return htmlElementManager.getDOMElements_FirstIndex();
   };
@@ -124,6 +118,7 @@ const DropdownMenuBarContainer = props => {
    * @returns {string}
    */
   const getIdLastHyperlinkDOMElement = () => {
+    const htmlElementManager = new HTMLElementManager();
     htmlElementManager.setDOMElement(getLastHyperlinkDOMElement());
     return htmlElementManager.getId();
   };
@@ -133,6 +128,7 @@ const DropdownMenuBarContainer = props => {
    * @returns {HTMLElement | null}
    */
   const getLastHyperlinkDOMElement = () => {
+    const htmlElementManager = new HTMLElementManager();
     htmlElementManager.setDOMElements(getAllHyperlinkDOMElements());
     return htmlElementManager.getDOMElements_LastIndex();
   };
@@ -141,6 +137,8 @@ const DropdownMenuBarContainer = props => {
    * Truncates hyperlink title text if required so that it fits within the allocated container size
    */
   const handleHyperlinkTitleWidths = () => {
+    const htmlElementManager = new HTMLElementManager();
+    htmlElementManager.setMaxContainerHeight(maximumHyperlinkTitleHeight);
     const allHyperlinkTitleElements = document.querySelectorAll('span[id$="--title--dropdown-menu-bar-container-item"]');
     for (let index = 0; index < allHyperlinkTitleElements.length; index += 1) {
       /* Truncate the text for each individual hyperlink element if required */
@@ -148,13 +146,14 @@ const DropdownMenuBarContainer = props => {
       htmlElementManager.truncateElementTextContentByContainerHeight();
     }
   };
-
+  
   /**
    * Handles click events on the dropdown menu bar containers close icon
    * @param {Event} event 
    */
   const handleOnClickCloseIcon = event => {
     /* Prevent the default click action from occurring */
+    const eventManager = new EventManager();
     eventManager.setEvent(event);
     eventManager.preventDefault();
 
@@ -172,6 +171,7 @@ const DropdownMenuBarContainer = props => {
    * @param {Event} event 
    */
   const handleOnClickExternalElements = event => {
+    const eventManager = new EventManager();
     eventManager.setEvent(event);
     const eventTargetId = eventManager.getEventTargetId();
     if (
@@ -200,6 +200,8 @@ const DropdownMenuBarContainer = props => {
    * @param {Event} event 
    */
   const handleOnKeyDownCloseIcon = event => {
+    const htmlElementManager = new HTMLElementManager();
+    const keyboardEventManager = new KeyboardEventManager();
     keyboardEventManager.setEvent(event);
     if (keyboardEventManager.isShiftKeyPressed() && keyboardEventManager.isTabKeyEvent()) {
       /* If shift + tab have been pressed on the close button element, cycle focus back to the last hyperlink element */
@@ -230,6 +232,8 @@ const DropdownMenuBarContainer = props => {
    * @param {Event} event 
    */
   const handleOnKeyDownHyperlink = event => {
+    const htmlElementManager = new HTMLElementManager();
+    const keyboardEventManager = new KeyboardEventManager();
     keyboardEventManager.setEvent(event);
     if (keyboardEventManager.isSpaceKeyEvent()) {
       /* Ensure that a spacebar key press also correctly redirects the user to the specified URL */
@@ -255,6 +259,7 @@ const DropdownMenuBarContainer = props => {
    * Marks the container element as hidden in the DOM
    */
   const setContainerAsHidden = () => {
+    const htmlElementManager = new HTMLElementManager();
     htmlElementManager.setDOMElement(getContainerDOMElement());
     htmlElementManager.setVisibility_Hidden();
   };
@@ -265,6 +270,7 @@ const DropdownMenuBarContainer = props => {
    * (ie. if a keyboard event has triggered this functionality)
    */
   const setContainerAsVisible = () => {
+    const htmlElementManager = new HTMLElementManager();
     htmlElementManager.setDOMElement(getContainerDOMElement());
     htmlElementManager.setVisibility_Visible();
 
@@ -290,6 +296,7 @@ const DropdownMenuBarContainer = props => {
       finalLeft -= exceedsRightmostScreenPosBy;
     }
     /* Set the new position of the component */
+    const htmlElementManager = new HTMLElementManager();
     htmlElementManager.setDOMElement(getContainerDOMElement());
     htmlElementManager.setLeft(finalLeft);
     htmlElementManager.setTop(newTop);

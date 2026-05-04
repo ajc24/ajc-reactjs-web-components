@@ -17,10 +17,6 @@ import {
 import './css/form-dropdown.css';
 import '../css/common.css';
 
-/* Initialise the event and element managers for this module */
-const eventManager = new EventManager();
-const htmlElementManager = new HTMLElementManager();
-
 /**
  * Standard dropdown menu component allowing for a render of a single dropdown menu in a form in a web application.
  * 
@@ -80,6 +76,7 @@ const Dropdown = props => {
    * @param {Event} event 
    */
   const handleOnChange = event => {
+    const eventManager = new EventManager();
     eventManager.setEvent(event);
     eventManager.preventDefault();
 
@@ -95,6 +92,7 @@ const Dropdown = props => {
    */
   const setDefaultSelectedOption = optionValue => {
     const selectElement = getSelectDOMElement();
+    const htmlElementManager = new HTMLElementManager();
     htmlElementManager.setDOMElement(selectElement);
     htmlElementManager.setOptionSelectedByValue(optionValue);
   };

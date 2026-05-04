@@ -27,13 +27,6 @@ const maximumMenuBarItemButtonHeight = 55;
 const downArrowInnerHTML = '&nbsp;<br />&darr;';
 const upArrowInnerHTML = '&nbsp;<br />&uarr;';
 
-/* Create the component and event managers for this component */
-const htmlElementManager = new HTMLElementManager();
-htmlElementManager.setMaxContainerHeight(maximumMenuBarItemButtonHeight);
-
-const eventManager = new EventManager();
-const keyboardEventManager = new KeyboardEventManager();
-
 /**
  * Dropdown Menu Bar Item component which is intended for use with the Menu Bar component. This component will render
  * a clickable menu bar item to the user. Clicking this item will open a dropdown menu container element which contains
@@ -78,6 +71,7 @@ const DropdownMenuBarItem = props => {
    * Applies focus to the dropdown menu bar items button element
    */
   const focusOnButtonDOMElement = () => {
+    const htmlElementManager = new HTMLElementManager();
     htmlElementManager.setDOMElement(getButtonDOMElement());
     htmlElementManager.focus();
   };
@@ -129,10 +123,12 @@ const DropdownMenuBarItem = props => {
    * @param {Event} event 
    */
   const handleOnClick_Span = event => {
+    const eventManager = new EventManager();
     eventManager.setEvent(event);
     eventManager.preventDefault();
 
     /* Redirect the click event to the menu item button component */
+    const htmlElementManager = new HTMLElementManager();
     htmlElementManager.setDOMElement(getButtonDOMElement());
     htmlElementManager.click();
   };
@@ -144,6 +140,7 @@ const DropdownMenuBarItem = props => {
    * @param {boolean} newEnableAutoFocus
    */
   const handleOnClick_MenuBarItem = (event, newEnableAutoFocus = false) => {
+    const eventManager = new EventManager();
     eventManager.setEvent(event);
     eventManager.preventDefault();
     if (props.isHidden === false) {
@@ -153,6 +150,7 @@ const DropdownMenuBarItem = props => {
         setMenuBarItemAsDeselected();
       } else {
         /* Mark the menu bar item as selected */
+        const htmlElementManager = new HTMLElementManager();
         htmlElementManager.setDOMElement(getButtonDOMElement());
         const buttonElementDimensions = htmlElementManager.getBoundingClientRect();
 
@@ -201,6 +199,7 @@ const DropdownMenuBarItem = props => {
    * @param {Event} event 
    */
   const handleOnKeyDown_MenuBarItem = event => {
+    const keyboardEventManager = new KeyboardEventManager();
     keyboardEventManager.setEvent(event);
     if (keyboardEventManager.isEnterKeyEvent() || keyboardEventManager.isSpaceKeyEvent()) {
       /* If the enter key or the space key have been pressed, ensure a click event occurs with auto focus enabled */
@@ -215,6 +214,7 @@ const DropdownMenuBarItem = props => {
    */
   const handleOnMouseLeave_MenuBarItem = () => {
     /* Reset the padding for the title element */
+    const htmlElementManager = new HTMLElementManager();
     htmlElementManager.setDOMElement(getTitleDOMElement());
     htmlElementManager.setPaddingLeft(5);
 
@@ -231,6 +231,7 @@ const DropdownMenuBarItem = props => {
    */
   const handleOnMouseOver_MenuBarItem = () => {
     /* Remove the padding from the title element */
+    const htmlElementManager = new HTMLElementManager();
     htmlElementManager.setDOMElement(getTitleDOMElement());
     htmlElementManager.setPaddingLeft(0);
 
@@ -246,6 +247,8 @@ const DropdownMenuBarItem = props => {
    * should not exceed the height of the button container element.
    */
   const handleMenuBarItemTextContentHeight = () => {
+    const htmlElementManager = new HTMLElementManager();
+    htmlElementManager.setMaxContainerHeight(maximumMenuBarItemButtonHeight);
     htmlElementManager.setDOMElement(getTitleDOMElement());
     htmlElementManager.truncateElementTextContentByContainerHeight();
   };
@@ -272,6 +275,7 @@ const DropdownMenuBarItem = props => {
     setIsItemSelected(false);
     
     /* Set the button elements opacity so that it is now hidden */
+    const htmlElementManager = new HTMLElementManager();
     htmlElementManager.setDOMElement(getButtonDOMElement());
     htmlElementManager.setOpacity_Hidden();
   };
@@ -281,6 +285,7 @@ const DropdownMenuBarItem = props => {
    */
   const setMenuBarItemAsVisible = () => {
     /* Set the button elements opacity so that it is now visible */
+    const htmlElementManager = new HTMLElementManager();
     htmlElementManager.setDOMElement(getButtonDOMElement());
     htmlElementManager.setOpacity_Visible();
   };

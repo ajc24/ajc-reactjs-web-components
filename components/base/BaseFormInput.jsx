@@ -17,9 +17,6 @@ import {
 import './css/base-form-input.css';
 import '../css/common.css';
 
-/* Set up the element manager required by this component */
-const htmlElementManager = new HTMLElementManager();
-
 /**
  * Base Form Input component allowing a user to enter text or date data as part of a form in the web application. This baseline
  * component supports rendering a text input, a password input or a date input. All input elements can be enabled or disabled, they can also
@@ -79,6 +76,7 @@ const BaseFormInput = props => {
    */
   const setCustomDate = customDate => {
     const inputElement = getInputDOMElement();
+    const htmlElementManager = new HTMLElementManager();
     htmlElementManager.setDOMElement(inputElement);
     htmlElementManager.setValue(`${customDate}`);
   };
@@ -97,6 +95,7 @@ const BaseFormInput = props => {
    */
   const setDefaultTextInputValue = defaultValue => {
     const textInputElement = getInputDOMElement();
+    const htmlElementManager = new HTMLElementManager();
     htmlElementManager.setDOMElement(textInputElement);
     htmlElementManager.setValue(defaultValue);
   };

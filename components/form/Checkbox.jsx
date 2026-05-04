@@ -14,10 +14,6 @@ import {
   MouseEventManager,
 } from '../modules';
 
-/* Set up the element and component managers required by this component */
-const htmlElementManager = new HTMLElementManager();
-const mouseEventManager = new MouseEventManager();
-
 /**
  * Checkbox component allowing a user to select / deselect a checkbox option in the web application. The checkbox can be enabled or disabled, it can also
  * be rendered in an error state with an error message in the case of a form validation issue.
@@ -65,6 +61,7 @@ const Checkbox = props => {
    * @param {Event} event 
    */
   const handleOnClick = event => {
+    const mouseEventManager = new MouseEventManager();
     mouseEventManager.setEvent(event);
     if (props.isDisabled !== true && mouseEventManager.isLeftClickEvent()) {
       setIsChecked(!isChecked);
@@ -82,6 +79,7 @@ const Checkbox = props => {
    */
   const setDefaultCheckboxValue = defaultSelection => {
     const checkboxElement = getInputCheckboxDOMElement();
+    const htmlElementManager = new HTMLElementManager();
     htmlElementManager.setDOMElement(checkboxElement);
     htmlElementManager.setChecked(defaultSelection);
     setIsChecked(defaultSelection);

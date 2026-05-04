@@ -27,12 +27,19 @@ const SpinnerTest = props => {
   const handleOnClick = event => {
     event.preventDefault();
     setIsDisplayed(true);
+
+    setTimeout(() => {
+      setIsDisplayed(false);
+    }, 3000);
   };
 
   return (
     <React.Fragment>
-      <button id="show-spinner" onClick={handleOnClick}>Show Loading Spinner (Esc to Exit)</button>
-      <Spinner colour={props.colour} enableEscapeKey={true} handleEscapeKeyPress={() => setIsDisplayed(false)} id="opacity-test" isDisplayed={isDisplayed}>
+      <p>Clicking the button below will render the loading spinner.</p>
+      <p>The spinner would normally stay visible until your code would complete its task, after which you would set it to be hidden again.</p>
+      <p>In this story the spinner will be displayed for only 3 seconds and then will automatically be hidden.</p>
+      <button id="show-spinner" onClick={handleOnClick}>Show Loading Spinner</button>
+      <Spinner colour={props.colour} id={`spinner-test-${props.colour || 'default'}`} isDisplayed={isDisplayed}>
         {props.children}
       </Spinner>
     </React.Fragment>

@@ -20,13 +20,6 @@ import './css/menu-bar-item.css';
 
 const maximumMenuItemLinkHeight = 45;
 
-/* Set up the event and component managers for this component */
-const htmlElementManager = new HTMLElementManager();
-htmlElementManager.setMaxContainerHeight(maximumMenuItemLinkHeight);
-
-const eventManager = new EventManager();
-const keyboardEventManager = new KeyboardEventManager();
-
 /**
  * Menu Bar Item hyperlink component intended for use with the Menu Bar component. This component allows a user to click the menu item or
  * interact with the item via the keyboard (spacebar and enter key presses supported) and from there, will be redirected to another page
@@ -90,6 +83,7 @@ const MenuBarItem = props => {
    */
   const handleOnClick = event => {
     if (isMenuBarItemHidden === true) {
+      const eventManager = new EventManager();
       eventManager.setEvent(event);
       eventManager.preventDefault();
     }
@@ -101,10 +95,12 @@ const MenuBarItem = props => {
    */
   const handleOnClickSpan = event => {
     /* Disable the default event */
+    const eventManager = new EventManager();
     eventManager.setEvent(event);
     eventManager.preventDefault();
 
     /* Execute the click action on the hyperlink element */
+    const htmlElementManager = new HTMLElementManager();
     htmlElementManager.setDOMElement(getHyperlinkDOMElement());
     htmlElementManager.click();
   };
@@ -114,9 +110,11 @@ const MenuBarItem = props => {
    * @param {Event} event 
    */
   const handleOnKeyDown = event => {
+    const keyboardEventManager = new KeyboardEventManager();
     keyboardEventManager.setEvent(event);
     if (keyboardEventManager.isSpaceKeyEvent() === true) {
       /* Ensure that a spacebar key press also correctly redirects the user to the specified URL */
+      const htmlElementManager = new HTMLElementManager();
       htmlElementManager.setDOMElement(keyboardEventManager.getEventTarget());
       htmlElementManager.click();
     }
@@ -127,6 +125,8 @@ const MenuBarItem = props => {
    * should not exceed the height of the item container itself.
    */
   const handleTextContentHeight = () => {
+    const htmlElementManager = new HTMLElementManager();
+    htmlElementManager.setMaxContainerHeight(maximumMenuItemLinkHeight);
     htmlElementManager.setDOMElement(getSpanDOMElement());
     htmlElementManager.truncateElementTextContentByContainerHeight();
   };
@@ -135,6 +135,7 @@ const MenuBarItem = props => {
    * Sets the menu bar item as hidden in the UI 
    */
   const setMenuBarItemAsHidden = () => {
+    const htmlElementManager = new HTMLElementManager();
     htmlElementManager.setDOMElement(getContainerDOMElement());
     htmlElementManager.setOpacity_Hidden();
   };
@@ -143,6 +144,7 @@ const MenuBarItem = props => {
    * Sets the menu bar item as visible in the UI 
    */
   const setMenuBarItemAsVisible = () => {
+    const htmlElementManager = new HTMLElementManager();
     htmlElementManager.setDOMElement(getContainerDOMElement());
     htmlElementManager.setOpacity_Visible();
   };

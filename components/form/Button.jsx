@@ -20,18 +20,23 @@ const Button = props => {
   let containerCss = 'form-buttons-container';
   props.alignment === 'centre' ? containerCss += ' form-buttons-container-alignment-centre' : containerCss += ' form-buttons-container-alignment-left';
 
+  /* Determine whether the button is in an error state or not */
+  const isInErrorState = props.ariaDescribedBy !== undefined;
+
   return (
     <div className={containerCss}>
-      <BaseButton backgroundColour={props.backgroundColour || 'white'} id={`${props.id}--single--button`} isDisabled={props.isDisabled || false} onClick={props.onClick}
-        type="button">
+      <BaseButton ariaDescribedBy={isInErrorState ? props.ariaDescribedBy : undefined} backgroundColour={props.backgroundColour || 'white'}
+        id={`${props.id}--single--button`} isDisabled={props.isDisabled || false} onClick={props.onClick} type="button">
           {props.children}
       </BaseButton>
     </div>
   );
 }
 Button.propTypes = {
-  /* The alignment of the button component. The button field by default will be left aligned but can be centre aligned if desired. */
+  /** The alignment of the button component. The button field by default will be left aligned but can be centre aligned if desired. */
   alignment: PropTypes.oneOf([ 'centre', 'left' ]),
+  /** The ID of the element that describes the button. This attribute is intended for linking an error message to the button, for example when used with a file input component. */
+  ariaDescribedBy: PropTypes.string,
   /** The background colour for the button. The default colour for the button is white. */
   backgroundColour: PropTypes.oneOf([ 'gold', 'green', 'grey', 'navy-and-gold', 'navy-and-white', 'red', 'white' ]),
   /** The text label to be set to the button. */

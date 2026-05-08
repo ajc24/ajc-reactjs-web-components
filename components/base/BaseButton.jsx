@@ -75,10 +75,14 @@ const BaseButton = props => {
   /* Set the styling for the button span element */
   const buttonSpanCss = 'button-standard-span';
 
+  /* Determine the error state attribute values if required */
+  const ariaDescribedByValue = props.ariaDescribedBy !== undefined ? props.ariaDescribedBy : undefined;
+  const ariaInvalidValue = props.ariaDescribedBy !== undefined ? true : undefined;
+
   return (
     <div className={containerCss}>
-      <button aria-disabled={props.isDisabled || false} aria-label={`${props.children}`} className={buttonCss} disabled={props.isDisabled || false}
-        id={`${props.id}--base-button`} onClick={handleClickButton} tabIndex={props.isDisabled === true ? '-1' : '0'} title={`${props.children}`}
+      <button aria-describedby={ariaDescribedByValue} aria-disabled={props.isDisabled || false} aria-invalid={ariaInvalidValue} aria-label={`${props.children}`} className={buttonCss}
+        disabled={props.isDisabled || false} id={`${props.id}--base-button`} onClick={handleClickButton} tabIndex={props.isDisabled === true ? '-1' : '0'} title={`${props.children}`}
         type={props.type === 'submit' ? 'submit' : 'button'}>
           <span className={buttonSpanCss}>
             {props.children}
@@ -90,6 +94,8 @@ const BaseButton = props => {
 BaseButton.propTypes = {
   /** Optional right side spacing (margin) of 8px to be used when separating multiple button components. By default this spacing is disabled. */
   addRightSideSpacing: PropTypes.bool,
+  /** The ID of the element that describes the button. This attribute is intended for linking an error message to the button, for example when used with a file input component. */
+  ariaDescribedBy: PropTypes.string,
   /** The background colour for the button component. The default colour for the background is white. */
   backgroundColour: PropTypes.oneOf([ 'gold', 'green', 'grey', 'navy-and-gold', 'navy-and-white', 'red', 'white' ]),
   /** The text label to be set to the button. */

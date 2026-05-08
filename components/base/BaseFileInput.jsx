@@ -102,6 +102,22 @@ const BaseFileInput = props => {
   };
 
   /**
+   * Retrieves the ID for the remove file button element
+   * @returns {string}
+   */
+  const getIdButton_RemoveFile = () => {
+    return `${props.id}--remove-file`;
+  };
+
+  /**
+   * Retrieves the ID for the select file button element
+   * @returns {string}
+   */
+  const getIdButton_SelectFile = () => {
+    return `${props.id}--select-file`;
+  };
+
+  /**
    * Retrieves the ID for the error message element linked to the input file element
    * @returns {string}
    */
@@ -226,6 +242,14 @@ const BaseFileInput = props => {
     }
   };
 
+  const setButtonInErrorState_Disabled = () => {
+
+  };
+
+  const setButtonInErrorState_Enabled = () => {
+
+  };
+
   /* Set the styling for the container element */
   const containerCss = 'file-input-container component-container-width background-transparent';
 
@@ -275,7 +299,7 @@ const BaseFileInput = props => {
         <label className={labelCss} htmlFor={getIdFileInputElement()} id={getIdFileInputLabelElement()} onClick={handleOnClickLabel} tabIndex="-1">
           {props.label}{isOptionalFileInput === false && <span className={asteriskCss}>&nbsp;*</span>}
           
-          <input accept={acceptList} aria-describedby={isInvalidFile ? getIdErrorMessageElement() : undefined} aria-hidden="true" aria-invalid={isInvalidFile}
+          <input accept={acceptList} aria-describedby={fileError !== undefined ? getIdErrorMessageElement() : undefined} aria-hidden="true" aria-invalid={fileError !== undefined}
             aria-labelledby={getIdFileInputLabelElement()} className={fileInputCss} data-preloaded-end={isPreLoadedFile} data-preloaded-start={usedDefaultFileData}
             id={getIdFileInputElement()} onChange={handleOnChangeInputFileElement} name={props.name} required={!isOptionalFileInput} tabIndex="-1"
             type="file" />
@@ -291,15 +315,15 @@ const BaseFileInput = props => {
       {
         fileAttached === true &&
           /* New file being added - not a preloaded file */
-          <Button alignment={props.alignment} backgroundColour={props.backgroundColour} id={`${props.id}--remove-file`} isDisabled={props.isDisabled}
-            onClick={handleOnClickRemoveFileButton}>
+          <Button ariaDescribedBy={fileError !== undefined ? getIdErrorMessageElement() : undefined} alignment={props.alignment} backgroundColour={props.backgroundColour}
+            id={getIdButton_RemoveFile()} isDisabled={props.isDisabled} onClick={handleOnClickRemoveFileButton}>
               Remove This File
           </Button>
       }
       {
         fileAttached === false &&
-          <Button alignment={props.alignment} backgroundColour={props.backgroundColour} id={`${props.id}--select-file`} isDisabled={props.isDisabled}
-            onClick={handleOnClickSelectFileButton}>
+          <Button ariaDescribedBy={fileError !== undefined ? getIdErrorMessageElement() : undefined} alignment={props.alignment} backgroundColour={props.backgroundColour}
+            id={getIdButton_SelectFile()} isDisabled={props.isDisabled} onClick={handleOnClickSelectFileButton}>
               Select a File for Upload
           </Button>
       }

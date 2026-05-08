@@ -114,8 +114,20 @@ const FormManager = props => {
   const getFirstFormFieldWithErrorMessageDOMElement = () => {
     const htmlElementManager = new HTMLElementManager();
     const allAriaInvalidElements = document.querySelectorAll('[aria-invalid="true"]');
-    htmlElementManager.setDOMElement(allAriaInvalidElements[0]);
-    htmlElementManager.focus();
+    const firstFormFieldElement = allAriaInvalidElements[0];
+
+    /* Retrieve the type attribute of the first form field - determine if this is a file input field or not */
+    const type = firstFormFieldElement.getAttribute('type');
+    if (type === 'file') {
+      /* Focus on the button element of the file input with the error message - the button for the file input will be the second element in the list of invalid elements */
+      const fileInputButtonElement = allAriaInvalidElements[1];
+      htmlElementManager.setDOMElement(fileInputButtonElement);
+      htmlElementManager.focus();
+    } else {
+      /* Focus on the first form field with an error message */
+      htmlElementManager.setDOMElement(firstFormFieldElement);
+      htmlElementManager.focus();
+    }
   };
 
   /**

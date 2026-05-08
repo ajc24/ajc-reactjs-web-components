@@ -44,6 +44,15 @@ const BaseFormInput = props => {
   }, []);
 
   /**
+   * Gets the ID for the error message element
+   * @returns {string}
+   */
+  const getIdErrorMessageElement = () => {
+    const id = props.id !== undefined ? `${props.id}-error-message` : 'default--base-form-input-error-message'
+    return id;
+  };
+
+  /**
    * Gets the ID for the input element
    * @returns {string}
    */
@@ -143,6 +152,12 @@ const BaseFormInput = props => {
     isOptionalFormInput = false;
   }
 
+  /* Determine the aria-describedby attribute value for the input element */
+  let ariaDescribedByValue = undefined;
+  if (isError) {
+    ariaDescribedByValue = getIdErrorMessageElement();
+  }
+
   return (
     <div className={containerCss}>
       <div className={labelContainerCss}>
@@ -151,14 +166,14 @@ const BaseFormInput = props => {
         </label>
       </div>
       <div className={inputContainerCss}>
-        <input aria-disabled={props.isDisabled || false} aria-labelledby={getIdLabelElement()} className={inputCss} data-optional={`${props.isOptional || false}`}
-          disabled={props.isDisabled || false} id={getIdInputElement()} name={props.name} tabIndex={props.isDisabled === true ? "-1" : "0"}
-          type={props.type !== undefined ? props.type : 'text'} />
+        <input aria-describedby={ariaDescribedByValue} aria-disabled={props.isDisabled || false} aria-invalid={isError} aria-labelledby={getIdLabelElement()}
+          className={inputCss} data-optional={`${props.isOptional || false}`} disabled={props.isDisabled || false} id={getIdInputElement()} name={props.name}
+          required={!isOptionalFormInput} tabIndex={props.isDisabled === true ? "-1" : "0"} type={props.type !== undefined ? props.type : 'text'} />
       </div>
       {
         props.isError === true && props.errorMessage !== undefined &&
-          <div className={errorMessageContainerCss}>
-            <span id={props.id !== undefined ? `${props.id}-error-message` : 'default--base-form-input-error-message'}>{props.errorMessage}</span>
+          <div className={errorMessageContainerCss} id={getIdErrorMessageElement()} role="alert">
+            {props.errorMessage}
           </div>
       }
     </div>
@@ -176,7 +191,7 @@ BaseFormInput.propTypes = {
   /** Switch to set whether the component is disabled or not. By default the component is enabled. */
   isDisabled: PropTypes.bool,
   /** Switch to set whether a validation error has been found in the components text data entry. By default this error mode is disabled. */
-  isError: PropTypes.isError,
+  isError: PropTypes.bool,
   /** Switch to mark the form input field component as optional. By default all input fields are not marked as optional fields. */
   isOptional: PropTypes.bool,
   /** The label text content to be linked to the form input component. */

@@ -60,3 +60,53 @@ export const Default = {
   args: {},
   render: Template_FormDataManager,
 };
+
+/**
+ * Renders a template form data manager component to test its ability to load and receive form data
+ * @returns {React.Component}
+ */
+const Template_FormDataManagerAsync = () => {
+	const [ loadFormData, setLoadFormData ] = useState(false);
+
+	/**
+	 * Handles receiving the form data response from the form data manager component
+	 * @param {string} formData 
+	 */
+	const handleGetFormData = formData => {
+		setLoadFormData(false);
+		console.log('The following response has been received from the load form data functionality:');
+		console.log(formData);
+	};
+
+	/**
+	 * Handles click events on the button in this component
+	 */
+	const handleOnClickButton = () => {
+		setLoadFormData(true);
+	};
+
+	/**
+	 * Performs the load form data process and returns the value from that
+	 * @returns {Promise<string>}
+	 */
+	const performLoadFormDataTest = async () => {
+		const promise1 = new Promise(resolve => {
+			setTimeout(() => {
+				resolve('This is the response from the async version of the performLoadFormDataTest functionality');
+			}, 1000);
+		});
+		return promise1;
+	};
+
+	return (
+		<React.Fragment>
+			<button onClick={handleOnClickButton}>Click to Load Form Data</button>
+			<FormDataManager backgroundColour="red" getLoadFormData={handleGetFormData} id="test-load-form-data" performAsyncLoadFormData={performLoadFormDataTest} startLoadFormData={loadFormData} />
+		</React.Fragment>
+	);
+};
+
+export const AsyncTest = {
+  args: {},
+  render: Template_FormDataManagerAsync,
+};

@@ -109,6 +109,16 @@ const FormManager = props => {
   };
 
   /**
+   * Applies focus to the first form field which has registered an error message
+   */
+  const getFirstFormFieldWithErrorMessageDOMElement = () => {
+    const htmlElementManager = new HTMLElementManager();
+    const allAriaInvalidElements = document.querySelectorAll('[aria-invalid="true"]');
+    htmlElementManager.setDOMElement(allAriaInvalidElements[0]);
+    htmlElementManager.focus();
+  };
+
+  /**
    * Gets the FormData instance representing all rendered form data from all form sections
    * @returns {FormData} 
    */
@@ -257,8 +267,8 @@ const FormManager = props => {
   const handleOnClickConfirm_InvalidFormEntriesDialog = () => {
     setShowInvalidFormEntriesDialog(false);
     
-    /* Restore focus back to the submit button */
-    focusOnSubmitButtonDOMElement();
+    /* Restore focus back to the first form field with an error message */
+    getFirstFormFieldWithErrorMessageDOMElement();
   };
 
   /**
@@ -539,7 +549,9 @@ const FormManager = props => {
         }, fullPageMaskWaitTime.short);
       } else if (props.onSuccessfulSubmit !== undefined) {
         /* Execute the onSuccessfulSubmit functionality only if it has been declared */
-        props.onSuccessfulSubmit();
+        setTimeout(() => {
+          props.onSuccessfulSubmit();
+        }, fullPageMaskWaitTime.short);
       }
       /* Restore focus back to the submit button on ending the verifications process */
       focusOnSubmitButtonDOMElement();

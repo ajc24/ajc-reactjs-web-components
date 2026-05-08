@@ -48,6 +48,14 @@ const Dropdown = props => {
   }, [ props.defaultValue, props.isDisabled, props.optionsList ]);
 
   /**
+   * Generates the ID for the error message component
+   * @returns {string}
+   */
+  const getIdErrorMessageDOMElement = () => {
+    return `${props.id}--dropdown-menu-error-message`;
+  };
+
+  /**
    * Generates the ID for the label component
    * @returns {string}
    */
@@ -141,6 +149,12 @@ const Dropdown = props => {
   if (props.isDisabled !== true && props.isOptional !== true) {
     isOptionalDropdown = false;
   }
+
+  /* Determine the aria-describedby attribute value for the select element */
+  let ariaDescribedByValue;
+  if (isError) {
+    ariaDescribedByValue = getIdErrorMessageDOMElement();
+  }
   
   return (
     <div className={containerCss}>
@@ -150,8 +164,8 @@ const Dropdown = props => {
         </label>
       </div>
       <div className={selectContainerCss}>
-        <select aria-disabled={isDisabled} aria-labelledby={getIdLabelDOMElement()} className={selectCss} disabled={isDisabled}
-          id={getIdSelectDOMElement()} name={props.name} onChange={handleOnChange} tabIndex={isDisabled === true ? "-1" : "0"}>
+        <select aria-describedby={ariaDescribedByValue} aria-disabled={isDisabled} aria-invalid={isError} aria-labelledby={getIdLabelDOMElement()} className={selectCss}
+          disabled={isDisabled} id={getIdSelectDOMElement()} name={props.name} onChange={handleOnChange} required={!isOptionalDropdown} tabIndex={isDisabled === true ? "-1" : "0"}>
             <optgroup className={optionGroupLabelCss} label={`${props.optionsList.groupLabel}`}>
               {
                 props.optionsList.itemsList.map((item, index) => {
@@ -162,9 +176,9 @@ const Dropdown = props => {
         </select>
       </div>
       {
-        props.errorMessage !== undefined &&
-          <div className={errorMessageContainerCss}>
-            <span id={`${props.id}--dropdown-menu-error-message`}>{props.errorMessage}</span>
+        isError && 
+          <div className={errorMessageContainerCss} id={getIdErrorMessageDOMElement()} role="alert">
+            <span>{props.errorMessage}</span>
           </div>
       }
     </div>

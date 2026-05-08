@@ -61,7 +61,15 @@ const RadioButtonGroup = props => {
   };
 
   /**
-   * Retrieves the ID linked to the menu bar items hyperlink element
+   * Retrieves the ID linked to the error message element for the radio button group component
+   * @returns {string}
+   */
+  const getIdErrorMessageDOMElement = () => {
+    return `${props.id}--error-message--radio-button-group`;
+  }
+
+  /**
+   * Retrieves the ID linked to the legend element of the radio button group
    * @returns {string}
    */
   const getIdLegendDOMElement = () => {
@@ -96,7 +104,7 @@ const RadioButtonGroup = props => {
 
   /* Set the styling for the fieldset element */
   let fieldsetCss = 'form-radio-button-group-fieldset';
-  if (props.errorMessage !== undefined && (props.disabled === false || props.disabled === undefined)) {
+  if (props.errorMessage !== undefined && (props.isDisabled === false || props.isDisabled === undefined)) {
     /* If an error is set and the component is not disabled - ensure the error styling is set to the fieldset */
     fieldsetCss += ' form-radio-button-group-fieldset-error';
   } else {
@@ -129,6 +137,9 @@ const RadioButtonGroup = props => {
     
   /* Set the styling for the error span element */
   const errorSpanCss = 'form-radio-button-group-error-span';
+
+  /* Determine whether this element is in an error state or not */
+  const isError = props.errorMessage !== undefined && props.errorMessage.length > 0;
     
   return (
     <div className={containerCss}>
@@ -140,7 +151,7 @@ const RadioButtonGroup = props => {
                 {props.headingTextContent}
               </Heading>
           }
-          <fieldset className={fieldsetCss}>
+          <fieldset aria-describedby={isError ? getIdErrorMessageDOMElement() : undefined} aria-invalid={isError} className={fieldsetCss}>
             <legend className={legendCss} id={getIdLegendDOMElement()} title={`${props.label}`}>
               {props.label}
             </legend>
@@ -160,8 +171,8 @@ const RadioButtonGroup = props => {
         </div>
       </div>
       {
-        props.errorMessage !== undefined && props.errorMessage.length > 0 &&
-          <div className={errorContainerCss}>
+        isError &&
+          <div className={errorContainerCss} id={getIdErrorMessageDOMElement()} role="alert">
             <span className={errorSpanCss}>{props.errorMessage}</span>
           </div>
       }

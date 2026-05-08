@@ -19,16 +19,24 @@ import { fullPageMaskWaitTime } from './data';
  */
 const FormDataManager = props => {
   const [ isLoadingData, setIsLoadingData ] = useState(false);
+  const [ processCompleted, setProcessCompleted ] = useState(false);
 
   useEffect(() => {
-    if (props.startLoadFormData === true && isLoadingData === false) {
+    if (props.startLoadFormData) {
+      /* Set the loading process as started */
+      setProcessCompleted(false);
       setIsLoadingData(true);
-      setTimeout(() => {
-        /* Process the loading of the form data */
-        handleLoadFormData();
-      }, fullPageMaskWaitTime);
     }
-  }, [ props.startLoadFormData ]);
+    if (isLoadingData && processCompleted === false) {
+      /* Now that we have started loading data, start the loading process */
+      startLoadingProcess();
+    }
+    if (processCompleted) {
+      /* On completion of the loading process, reset the loading state */
+      setProcessCompleted(false);
+      setIsLoadingData(false);
+    }
+  }, [ isLoadingData, processCompleted, props.startLoadFormData ]);
 
   /**
    * Handles the loading of the form data and pushes the response from that process to the
@@ -44,15 +52,25 @@ const FormDataManager = props => {
       response = props.performLoadFormData();
     }
     /* Pass the response from the load data functionality to the specified functionality */
-    props.getLoadFormData(response);
+    if (props.getLoadFormData) {
+      props.getLoadFormData(response);
+    }
+    /* Mark the loading process as completed */
+    setProcessCompleted(true);
+  };
 
-    /* Reset the loading status of this component back to default (false) */
-    setIsLoadingData(false);
+  /**
+   * Starts the loading form data process
+   */
+  const startLoadingProcess = () => {
+    setTimeout(async () => {
+      await handleLoadFormData();
+    }, fullPageMaskWaitTime.long);
   };
 
   return (
     <React.Fragment>
-      <Spinner colour={props.backgroundColour || 'white'} enableEscapeKey={false} id={`${props.id}--pre-form-data-manager`} isDisplayed={isLoadingData}>
+      <Spinner colour={props.backgroundColour || 'white'} id={`${props.id}--pre-form-data-manager`} isDisplayed={isLoadingData}>
         {props.spinnerTextContent || 'Loading...'}
       </Spinner>
     </React.Fragment>

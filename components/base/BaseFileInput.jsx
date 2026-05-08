@@ -102,6 +102,14 @@ const BaseFileInput = props => {
   };
 
   /**
+   * Retrieves the ID for the error message element linked to the input file element
+   * @returns {string}
+   */
+  const getIdErrorMessageElement = () => {
+    return `${props.id}--file-input--error-message`;
+  }
+
+  /**
    * Retrieves the ID for the input file element
    * @returns {string}
    */
@@ -244,7 +252,7 @@ const BaseFileInput = props => {
   /* Set the information text for the input file component */
   let paragraphText = '';
   if (fileAttached === true && isPreLoadedFile === false) {
-    paragraphText = `Your file is ready: ${fileName}`;
+    paragraphText = `Your file is ready to be uploaded: ${fileName}`;
   } else if (fileAttached === true && isPreLoadedFile === true) {
     paragraphText = `You have already selected this file: ${fileName}`;
   } else {
@@ -266,12 +274,16 @@ const BaseFileInput = props => {
       <div className={commonInnerContainerCss}>
         <label className={labelCss} htmlFor={getIdFileInputElement()} id={getIdFileInputLabelElement()} onClick={handleOnClickLabel} tabIndex="-1">
           {props.label}{isOptionalFileInput === false && <span className={asteriskCss}>&nbsp;*</span>}
+          
+          <input accept={acceptList} aria-describedby={isInvalidFile ? getIdErrorMessageElement() : undefined} aria-hidden="true" aria-invalid={isInvalidFile}
+            aria-labelledby={getIdFileInputLabelElement()} className={fileInputCss} data-preloaded-end={isPreLoadedFile} data-preloaded-start={usedDefaultFileData}
+            id={getIdFileInputElement()} onChange={handleOnChangeInputFileElement} name={props.name} required={!isOptionalFileInput} tabIndex="-1"
+            type="file" />
         </label>
       </div>
       <ImagePreview alignment={props.alignment} backgroundColour={props.backgroundColour} filePreviewType={props.accept !== undefined ? props.accept : 'images'}
         id={props.id} imageData={inputFileValueData} isDisabled={props.isDisabled} isInvalidFile={isInvalidFile} />
-      <input accept={acceptList} aria-hidden="true" aria-labelledby={getIdFileInputLabelElement()} className={fileInputCss} data-preloaded-end={isPreLoadedFile}
-        data-preloaded-start={usedDefaultFileData} id={getIdFileInputElement()} onChange={handleOnChangeInputFileElement} name={props.name} tabIndex="-1" type="file" />
+      
       <button aria-hidden={true} className={buttonCss} id={`${getIdFileInputElement()}--clear`} onClick={clearFileInputElementValue} tabIndex={-1}>Clear File Data</button>
       <Paragraph alignment={props.alignment} id={`${props.id}--information--file-input`}>
         {paragraphText}
@@ -281,22 +293,20 @@ const BaseFileInput = props => {
           /* New file being added - not a preloaded file */
           <Button alignment={props.alignment} backgroundColour={props.backgroundColour} id={`${props.id}--remove-file`} isDisabled={props.isDisabled}
             onClick={handleOnClickRemoveFileButton}>
-              Remove File
+              Remove This File
           </Button>
       }
       {
         fileAttached === false &&
           <Button alignment={props.alignment} backgroundColour={props.backgroundColour} id={`${props.id}--select-file`} isDisabled={props.isDisabled}
             onClick={handleOnClickSelectFileButton}>
-              Select File
+              Select a File for Upload
           </Button>
       }
       {
         fileError !== undefined &&
-          <div className={errorMessageContainerCss}>
-            <span id={`${props.id}--file-input--error-message`}>
-              {fileError}
-            </span>
+          <div className={errorMessageContainerCss} id={getIdErrorMessageElement()} role="alert">
+            {fileError}
           </div>
       }
     </div>
@@ -313,6 +323,7 @@ BaseFileInput.propTypes = {
   defaultFileData: PropTypes.oneOf([ PropTypes.object, PropTypes.string ]),
   /** The file name of the default data file. */
   defaultFileName: PropTypes.string,
+  /** The error message to be displayed when a file upload error occurs. */
   errorMessage: PropTypes.string,
   /** The file size (in KB) which will serve as the maximum permitted file size for upload. The default maximum file size is 20480KB (20MB). */
   fileSizeLimit: PropTypes.number,

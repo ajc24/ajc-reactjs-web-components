@@ -23,10 +23,10 @@ const BaseMenuBar = props => {
   const { backgroundColour, fontColour } = getColourCombination(props.backgroundColour);
 
   /* Set the styling for the navigation element */
-  const navCss = `nav screen-width-root background-white font-default font-${fontColour}`;
+  const navCss = `nav screen-width-root background-${backgroundColour} font-default font-${fontColour}`;
 
   /* Set the styling for the outer content element */
-  const outerContentCss = `nav-content-outer screen-width-content-outer background-${backgroundColour}`;
+  const outerContentCss = 'nav-content-outer screen-width-content-outer';
 
   /* Set the styling for the inner content element */
   const innerContentCss = 'nav-content-inner screen-width-content-inner';

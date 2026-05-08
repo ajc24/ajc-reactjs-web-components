@@ -24,11 +24,11 @@ const Main = props => {
   }, []);
 
   /* Set the styling for the main element */
-  const mainCss = 'main-root screen-width-root background-white font-default font-black';
+  let mainCss = 'main-root screen-width-root font-default font-black';
+  props.backgroundColour === 'grey' ? mainCss += ' background-grey-body' : mainCss += ' background-white';
 
   /* Set the styling for the outer content element */
-  let outerContentCss = 'main-outer screen-width-content-outer';
-  props.backgroundColour === 'grey' ? outerContentCss += ' background-grey-body' : outerContentCss += ' background-white';
+  const outerContentCss = 'main-outer screen-width-content-outer';
 
   /* Set the styling for the inner content element */
   const innerContentCss = 'main-inner screen-width-content-inner';

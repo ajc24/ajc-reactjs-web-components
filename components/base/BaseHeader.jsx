@@ -19,12 +19,12 @@ const BaseHeader = props => {
   }, []);
 
   /* Set the styling for the header element */
-  let headerCss = 'header screen-width-root background-white font-default font-black';
+  let headerCss = 'header screen-width-root font-default font-black';
   props.customSizeClass !== undefined ? headerCss += ` ${props.customSizeClass}` : headerCss += ' header-size-small';
+  props.backgroundColour === 'grey' ? headerCss += ' background-grey-body' : headerCss += ' background-white';
 
   /* Set the styling for the outer content element */
-  let outerContentCss = 'header-content-outer screen-width-content-outer';
-  props.backgroundColour === 'grey' ? outerContentCss += ' background-grey-body' : outerContentCss += ' background-white';
+  const outerContentCss = 'header-content-outer screen-width-content-outer';
 
   /* Set the styling for the inner content element */
   const innerContentCss = 'header-content-inner screen-width-content-inner';

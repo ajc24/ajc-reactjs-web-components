@@ -33,6 +33,14 @@ const Checkbox = props => {
   }, []);
 
   /**
+   * Generates the ID for the error message component
+   * @returns {string}
+   */
+  const getIdErrorMessageDOMElement = () => {
+    return `${props.id}--error-message`;
+  };
+
+  /**
    * Generates the ID for the input checkbox component
    * @returns {string}
    */
@@ -120,13 +128,22 @@ const Checkbox = props => {
   /* Determine whether the checkbox is an optional form component or not */
   const isCheckboxOptional = (props.isOptional === true || props.isOptional === undefined) ? true : false;
 
+  /* Determine whether the checkbox is in an error state or not */
+  const isError = props.errorMessage !== undefined && props.errorMessage.length > 0;
+
+  /* Determine the aria-describedby attribute value for the checkbox input element */
+  let ariaDescribedByValue = undefined;
+  if (isError) {
+    ariaDescribedByValue = getIdErrorMessageDOMElement();
+  }
+
   return (
     <div className={containerCss}>
       <div className={innerContainerCss}>
         <div className={inputContainerCss}>
-          <input aria-checked={isChecked} aria-disabled={props.isDisabled || false} aria-labelledby={getIdLabelDOMElement()} className={checkboxCss}
-            data-optional={isCheckboxOptional} disabled={props.isDisabled || false} id={getIdInputCheckboxDOMElement()} name={props.name} onClick={handleOnClick}
-            tabIndex={props.isDisabled === true ? "-1" : "0"} type="checkbox" />
+          <input aria-checked={isChecked} aria-describedby={ariaDescribedByValue} aria-disabled={props.isDisabled || false} aria-invalid={isError} aria-labelledby={getIdLabelDOMElement()}
+            className={checkboxCss} data-optional={isCheckboxOptional} disabled={props.isDisabled || false} id={getIdInputCheckboxDOMElement()} name={props.name} onClick={handleOnClick}
+            required={!isCheckboxOptional} tabIndex={props.isDisabled === true ? "-1" : "0"} type="checkbox" />
         </div>
         <div className={labelContainerCss}>
           <label className={labelCss} htmlFor={getIdInputCheckboxDOMElement()} id={getIdLabelDOMElement()} onClick={handleOnClick}>
@@ -135,8 +152,8 @@ const Checkbox = props => {
         </div>
       </div>
       {
-        props.errorMessage !== undefined && props.errorMessage.length > 0 &&
-          <div className={errorContainerCss}>
+        isError &&
+          <div className={errorContainerCss} id={getIdErrorMessageDOMElement()} role="alert">
             <span className={errorSpanCss}>{props.errorMessage}</span>
           </div>
       }

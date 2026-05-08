@@ -22,7 +22,7 @@
   "devDependencies": {
     "@babel/cli": "^7.28.6",
     "@babel/core": "^7.29.0",
-    "@babel/preset-env": "^7.29.3",
+    "@babel/preset-env": "^7.29.5",
     "@babel/preset-react": "^7.28.5",
     "@storybook/addon-a11y": "^10.3.6",
     "@storybook/addon-docs": "^10.3.6",
@@ -31,14 +31,15 @@
     "@storybook/react": "^10.3.6",
     "@storybook/react-webpack5": "^10.3.6",
     "@testing-library/react": "^16.3.2",
+    "@testing-library/testcafe": "^5.0.1",
     "axe-core": "^4.11.4",
-    "babel-loader": "^10.1.1",
-    "jest": "^30.3.0",
-    "jest-environment-jsdom": "^30.3.0",
+    "jest": "^30.4.1",
+    "jest-environment-jsdom": "^30.4.1",
     "prop-types": "^15.8.1",
-    "react": "^19.2.5",
-    "react-dom": "^19.2.5",
-    "react-router": "^7.14.2",
-    "storybook": "^10.3.6"
+    "react": "^19.2.6",
+    "react-dom": "^19.2.6",
+    "react-router": "^7.15.0",
+    "storybook": "^10.3.6",
+    "testcafe": "^3.7.4"
   }
 }

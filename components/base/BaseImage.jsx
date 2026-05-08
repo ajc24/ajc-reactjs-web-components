@@ -5,6 +5,7 @@ import { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import './css/base-image.css';
 
+const blendInImageAfterLoadWaitTime = 250;
 const defaultHeightAndWidth = 100;
 
 /**
@@ -16,8 +17,10 @@ const BaseImage = props => {
   const baseImageRef = useRef(null);
 
   useEffect(() => {
-    /* Set the functionality to be executed when the on load event is fired */
-    baseImageRef.current.addEventListener('load', onLoadSetImageOpacityToVisible);
+    setTimeout(() => {
+      /* On first loading the image, set the image to be visible */
+      setImageOpacityToVisible();
+    }, blendInImageAfterLoadWaitTime);
 
     /* Set the functionality to be executed when the on mouse down event is fired */
     if (props.onClick !== undefined) {
@@ -54,9 +57,8 @@ const BaseImage = props => {
    * Sets the opacity of the image to visible when the on load event is fired.
    * This function is especially useful when used in conjunction with transitions to fade loaded images into view.
    */
-  const onLoadSetImageOpacityToVisible = () => {
+  const setImageOpacityToVisible = () => {
     baseImageRef.current.style.opacity = 1;
-    baseImageRef.current.removeEventListener('load', onLoadSetImageOpacityToVisible);
   };
 
   /* Set the CSS styling for the image */

@@ -280,7 +280,9 @@ const FormManager = props => {
     setShowInvalidFormEntriesDialog(false);
     
     /* Restore focus back to the first form field with an error message */
-    getFirstFormFieldWithErrorMessageDOMElement();
+    setTimeout(() => {
+      getFirstFormFieldWithErrorMessageDOMElement();
+    }, fullPageMaskWaitTime.short);
   };
 
   /**
